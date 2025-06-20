@@ -1,0 +1,137 @@
+{
+  "featuredProperties": [
+    {
+      "id": 1,
+      "title": {
+        "vi": "Biệt thự cao cấp Quận 7",
+        "en": "Luxury Villa District 7",
+        "ko": "7구 고급 빌라"
+      },
+      "price": "15.5 tỷ",
+      "priceUSD": "$650,000",
+      "priceKRW": "₩850,000,000",
+      "location": {
+        "vi": "Quận 7, TP.HCM",
+        "en": "District 7, Ho Chi Minh City",
+        "ko": "호치민시 7구"
+      },
+      "area": "300m²",
+      "bedrooms": 4,
+      "bathrooms": 3,
+      "floors": 3,
+      "direction": {
+        "vi": "Đông Nam",
+        "en": "Southeast",
+        "ko": "남동쪽"
+      },
+      "image": "/placeholder.svg?height=200&width=300",
+      "type": {
+        "vi": "Biệt thự",
+        "en": "Villa",
+        "ko": "빌라"
+      },
+      "description": {
+        "vi": "Biệt thự cao cấp với thiết kế hiện đại, đầy đủ tiện nghi",
+        "en": "Luxury villa with modern design and full amenities",
+        "ko": "현대적인 디자인과 완비된 편의시설을 갖춘 고급 빌라"
+      },
+      "features": {
+        "vi": ["Hồ bơi riêng", "Sân vườn rộng rãi", "Garage 2 xe", "Hệ thống an ninh 24/7"],
+        "en": ["Private pool", "Spacious garden", "2-car garage", "24/7 security system"],
+        "ko": ["전용 수영장", "넓은 정원", "2대용 차고", "24시간 보안 시스템"]
+      }
+    },
+    {
+      "id": 2,
+      "title": {
+        "vi": "Căn hộ chung cư Landmark 81",
+        "en": "Landmark 81 Apartment",
+        "ko": "랜드마크 81 아파트"
+      },
+      "price": "8.2 tỷ",
+      "priceUSD": "$345,000",
+      "priceKRW": "₩450,000,000",
+      "location": {
+        "vi": "Quận 1, TP.HCM",
+        "en": "District 1, Ho Chi Minh City",
+        "ko": "호치민시 1구"
+      },
+      "area": "120m²",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "image": "/placeholder.svg?height=200&width=300",
+      "type": {
+        "vi": "Căn hộ",
+        "en": "Apartment",
+        "ko": "아파트"
+      },
+      "description": {
+        "vi": "Căn hộ cao cấp view sông Sài Gòn, nội thất đầy đủ",
+        "en": "Luxury apartment with Saigon River view, fully furnished",
+        "ko": "사이공강 전망의 고급 아파트, 가구 완비"
+      }
+    },
+    {
+      "id": 3,
+      "title": {
+        "vi": "Nhà phố thương mại Thủ Đức",
+        "en": "Commercial Townhouse Thu Duc",
+        "ko": "투득 상업용 타운하우스"
+      },
+      "price": "12.8 tỷ",
+      "priceUSD": "$540,000",
+      "priceKRW": "₩700,000,000",
+      "location": {
+        "vi": "Thủ Đức, TP.HCM",
+        "en": "Thu Duc, Ho Chi Minh City",
+        "ko": "호치민시 투득"
+      },
+      "area": "200m²",
+      "bedrooms": 4,
+      "bathrooms": 3,
+      "image": "/placeholder.svg?height=200&width=300",
+      "type": {
+        "vi": "Nhà phố",
+        "en": "Townhouse",
+        "ko": "타운하우스"
+      },
+      "description": {
+        "vi": "Nhà phố kinh doanh, vị trí đắc địa, giao thông thuận lợi",
+        "en": "Commercial townhouse, prime location, convenient transportation",
+        "ko": "상업용 타운하우스, 최고의 위치, 편리한 교통"
+      }
+    }
+  ],
+  "allProperties": [
+    {
+      "id": 4,
+      "title": {
+        "vi": "Đất nền dự án Vinhomes",
+        "en": "Vinhomes Project Land",
+        "ko": "빈홈스 프로젝트 토지"
+      },
+      "price": "5.5 tỷ",
+      "priceUSD": "$230,000",
+      "priceKRW": "₩300,000,000",
+      "location": {
+        "vi": "Quận 9, TP.HCM",
+        "en": "District 9, Ho Chi Minh City",
+        "ko": "호치민시 9구"
+      },
+      "area": "150m²",
+      "bedrooms": 0,
+      "bathrooms": 0,
+      "image": "/placeholder.svg?height=200&width=300",
+      "type": {
+        "vi": "Đất nền",
+        "en": "Land",
+        "ko": "토지"
+      },
+      "description": {
+        "vi": "Đất nền trong khu đô thị cao cấp, pháp lý rõ ràng",
+        "en": "Land in luxury urban area, clear legal status",
+        "ko": "고급 도시 지역의 토지, 명확한 법적 지위"
+      }
+    }
+  ]
+}

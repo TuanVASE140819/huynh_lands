@@ -1,0 +1,48 @@
+{
+  "featuredNews": {
+    "id": 1,
+    "title": {
+      "vi": "Thị trường BĐS TP.HCM quý 4/2024: Xu hướng tăng trưởng mạnh mẽ",
+      "en": "HCMC Real Estate Market Q4/2024: Strong Growth Trend",
+      "ko": "호치민시 부동산 시장 2024년 4분기: 강력한 성장 추세"
+    },
+    "excerpt": {
+      "vi": "Phân tích chi tiết về tình hình thị trường bất động sản TP.HCM trong quý 4/2024 với những dự báo tích cực cho năm 2025...",
+      "en": "Detailed analysis of Ho Chi Minh City real estate market situation in Q4/2024 with positive forecasts for 2025...",
+      "ko": "2024년 4분기 호치민시 부동산 시장 상황에 대한 상세 분석과 2025년에 대한 긍정적 전망..."
+    },
+    "image": "/placeholder.svg?height=300&width=600",
+    "category": {
+      "vi": "Phân tích thị trường",
+      "en": "Market Analysis",
+      "ko": "시장 분석"
+    },
+    "date": "15/12/2024",
+    "author": "Nguyễn Thùy Anh",
+    "views": 1250
+  },
+  "articles": [
+    {
+      "id": 2,
+      "title": {
+        "vi": "5 lưu ý quan trọng khi mua nhà lần đầu",
+        "en": "5 Important Notes When Buying Your First Home",
+        "ko": "첫 주택 구매 시 중요한 5가지 주의사항"
+      },
+      "excerpt": {
+        "vi": "Hướng dẫn chi tiết cho người mua nhà lần đầu để tránh những rủi ro không đáng có...",
+        "en": "Detailed guide for first-time home buyers to avoid unnecessary risks...",
+        "ko": "첫 주택 구매자를 위한 불필요한 위험을 피하는 상세 가이드..."
+      },
+      "image": "/placeholder.svg?height=200&width=300",
+      "category": {
+        "vi": "Hướng dẫn",
+        "en": "Guide",
+        "ko": "가이드"
+      },
+      "date": "12/12/2024",
+      "author": "Trần Văn B",
+      "views": 890
+    }
+  ]
+}

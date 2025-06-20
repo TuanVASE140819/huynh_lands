@@ -1,0 +1,527 @@
+{
+  "vi": {
+    "nav": {
+      "home": "Trang chủ",
+      "about": "Giới thiệu",
+      "properties": "Bất động sản",
+      "news": "Tin tức",
+      "contact": "Liên hệ",
+      "login": "Đăng nhập",
+      "register": "Đăng ký"
+    },
+    "hero": {
+      "title": "Tìm kiếm ngôi nhà mơ ước của bạn",
+      "subtitle": "Thùy Anh Land - Đối tác tin cậy trong mọi giao dịch bất động sản",
+      "cta": "Xem danh sách BĐS"
+    },
+    "search": {
+      "title": "Tìm kiếm nhanh",
+      "propertyType": "Loại BĐS",
+      "location": "Vị trí",
+      "priceRange": "Khoảng giá",
+      "search": "Tìm kiếm",
+      "keyword": "Tìm kiếm theo từ khóa...",
+      "area": "Diện tích",
+      "sortBy": "Sắp xếp",
+      "viewMode": "Hiển thị",
+      "results": "Tìm thấy {count} bất động sản"
+    },
+    "propertyTypes": {
+      "all": "Tất cả",
+      "nha-pho": "Nhà phố",
+      "can-ho": "Căn hộ",
+      "biet-thu": "Biệt thự",
+      "dat-nen": "Đất nền"
+    },
+    "locations": {
+      "all": "Tất cả",
+      "quan-1": "Quận 1",
+      "quan-2": "Quận 2",
+      "quan-7": "Quận 7",
+      "quan-9": "Quận 9",
+      "thu-duc": "Thủ Đức",
+      "binh-thanh": "Bình Thạnh"
+    },
+    "priceRanges": {
+      "all": "Tất cả",
+      "duoi-5ty": "Dưới 5 tỷ",
+      "5-10ty": "5 - 10 tỷ",
+      "10-20ty": "10 - 20 tỷ",
+      "tren-20ty": "Trên 20 tỷ"
+    },
+    "areaRanges": {
+      "all": "Tất cả",
+      "duoi-100": "Dưới 100m²",
+      "100-200": "100 - 200m²",
+      "200-300": "200 - 300m²",
+      "tren-300": "Trên 300m²"
+    },
+    "sortOptions": {
+      "newest": "Mới nhất",
+      "price-low": "Giá thấp đến cao",
+      "price-high": "Giá cao đến thấp",
+      "area-large": "Diện tích lớn nhất"
+    },
+    "about": {
+      "title": "Giới thiệu Thùy Anh Land",
+      "description": "Với hơn 10 năm kinh nghiệm trong lĩnh vực bất động sản, Thùy Anh Land tự hào là đối tác tin cậy của hàng nghìn khách hàng trong việc tìm kiếm và đầu tư bất động sản."
+    },
+    "featured": {
+      "title": "Bất động sản nổi bật",
+      "subtitle": "Những dự án được quan tâm nhất hiện tại"
+    },
+    "whyChoose": {
+      "title": "Tại sao chọn Thùy Anh Land?",
+      "subtitle": "Những lý do khách hàng tin tưởng chọn chúng tôi"
+    },
+    "cta": {
+      "title": "Cần tư vấn về bất động sản?",
+      "subtitle": "Liên hệ ngay với chúng tôi để được tư vấn miễn phí",
+      "contact": "Liên hệ tư vấn",
+      "call": "Gọi ngay"
+    },
+    "footer": {
+      "description": "Đối tác tin cậy trong mọi giao dịch bất động sản. Hơn 10 năm kinh nghiệm phục vụ khách hàng.",
+      "quickLinks": "Liên kết nhanh",
+      "contactInfo": "Thông tin liên hệ",
+      "newsletter": "Đăng ký nhận tin",
+      "newsletterDesc": "Nhận thông tin mới nhất về thị trường BĐS",
+      "subscribe": "Đăng ký",
+      "copyright": "© 2024 Thùy Anh Land. Tất cả quyền được bảo lưu."
+    },
+    "property": {
+      "viewDetails": "Xem chi tiết",
+      "viewAll": "Xem tất cả",
+      "bedrooms": "Phòng ngủ",
+      "bathrooms": "Phòng tắm",
+      "area": "Diện tích",
+      "price": "Giá",
+      "location": "Vị trí",
+      "type": "Loại hình",
+      "status": "Trạng thái",
+      "code": "Mã BĐS",
+      "direction": "Hướng",
+      "floors": "Số tầng",
+      "features": "Tiện ích nổi bật",
+      "description": "Mô tả chi tiết",
+      "additionalInfo": "Thông tin bổ sung",
+      "mapLocation": "Vị trí trên bản đồ",
+      "similarProperties": "Bất động sản tương tự",
+      "contactAgent": "Thông tin môi giới",
+      "requestConsultation": "Yêu cầu tư vấn",
+      "sendRequest": "Gửi yêu cầu",
+      "fullName": "Họ và tên",
+      "phone": "Số điện thoại",
+      "email": "Email",
+      "consultationContent": "Nội dung tư vấn...",
+      "specialist": "Chuyên viên tư vấn",
+      "sendEmail": "Gửi email"
+    },
+    "news": {
+      "title": "Tin tức bất động sản",
+      "subtitle": "Cập nhật thông tin mới nhất về thị trường bất động sản",
+      "featured": "Tin nổi bật",
+      "latest": "Tin tức mới nhất",
+      "searchNews": "Tìm kiếm tin tức...",
+      "category": "Danh mục",
+      "readMore": "Đọc thêm",
+      "author": "Tác giả",
+      "views": "lượt xem",
+      "date": "Ngày đăng"
+    },
+    "newsCategories": {
+      "all": "Tất cả",
+      "market-analysis": "Phân tích thị trường",
+      "guide": "Hướng dẫn",
+      "investment": "Đầu tư",
+      "legal": "Pháp lý",
+      "design": "Thiết kế",
+      "new-projects": "Dự án mới",
+      "tax": "Thuế"
+    },
+    "contact": {
+      "title": "Liên hệ với chúng tôi",
+      "subtitle": "Chúng tôi luôn sẵn sàng hỗ trợ bạn trong mọi vấn đề về bất động sản",
+      "sendMessage": "Gửi tin nhắn cho chúng tôi",
+      "formDescription": "Điền thông tin bên dưới và chúng tôi sẽ liên hệ lại với bạn sớm nhất",
+      "quickContact": "Liên hệ nhanh",
+      "officeLocations": "Địa chỉ văn phòng",
+      "connectWithUs": "Kết nối với chúng tôi",
+      "followUs": "Theo dõi chúng tôi để cập nhật thông tin mới nhất về thị trường bất động sản",
+      "mapTitle": "Bản đồ văn phòng chính",
+      "subject": "Chủ đề",
+      "content": "Nội dung",
+      "sendMessageBtn": "Gửi tin nhắn",
+      "hotline": "Hotline",
+      "workingHours": "Giờ làm việc",
+      "workingTime": "8:00 - 18:00 (T2-T7)"
+    },
+    "contactSubjects": {
+      "mua-ban": "Mua bán BĐS",
+      "cho-thue": "Cho thuê BĐS",
+      "tu-van": "Tư vấn đầu tư",
+      "phap-ly": "Hỗ trợ pháp lý",
+      "khac": "Khác"
+    },
+    "pagination": {
+      "previous": "Trước",
+      "next": "Sau"
+    },
+    "common": {
+      "loading": "Đang tải...",
+      "error": "Có lỗi xảy ra",
+      "noResults": "Không tìm thấy kết quả",
+      "backToHome": "Về trang chủ"
+    }
+  },
+  "en": {
+    "nav": {
+      "home": "Home",
+      "about": "About",
+      "properties": "Properties",
+      "news": "News",
+      "contact": "Contact",
+      "login": "Login",
+      "register": "Register"
+    },
+    "hero": {
+      "title": "Find Your Dream Home",
+      "subtitle": "Thuy Anh Land - Your Trusted Partner in Real Estate",
+      "cta": "View Properties"
+    },
+    "search": {
+      "title": "Quick Search",
+      "propertyType": "Property Type",
+      "location": "Location",
+      "priceRange": "Price Range",
+      "search": "Search",
+      "keyword": "Search by keyword...",
+      "area": "Area",
+      "sortBy": "Sort By",
+      "viewMode": "View",
+      "results": "Found {count} properties"
+    },
+    "propertyTypes": {
+      "all": "All",
+      "nha-pho": "Townhouse",
+      "can-ho": "Apartment",
+      "biet-thu": "Villa",
+      "dat-nen": "Land"
+    },
+    "locations": {
+      "all": "All",
+      "quan-1": "District 1",
+      "quan-2": "District 2",
+      "quan-7": "District 7",
+      "quan-9": "District 9",
+      "thu-duc": "Thu Duc",
+      "binh-thanh": "Binh Thanh"
+    },
+    "priceRanges": {
+      "all": "All",
+      "duoi-5ty": "Under $210K",
+      "5-10ty": "$210K - $420K",
+      "10-20ty": "$420K - $840K",
+      "tren-20ty": "Over $840K"
+    },
+    "areaRanges": {
+      "all": "All",
+      "duoi-100": "Under 100m²",
+      "100-200": "100 - 200m²",
+      "200-300": "200 - 300m²",
+      "tren-300": "Over 300m²"
+    },
+    "sortOptions": {
+      "newest": "Newest",
+      "price-low": "Price: Low to High",
+      "price-high": "Price: High to Low",
+      "area-large": "Largest Area"
+    },
+    "about": {
+      "title": "About Thuy Anh Land",
+      "description": "With over 10 years of experience in real estate, Thuy Anh Land is proud to be a trusted partner for thousands of customers in finding and investing in real estate."
+    },
+    "featured": {
+      "title": "Featured Properties",
+      "subtitle": "The most popular projects currently"
+    },
+    "whyChoose": {
+      "title": "Why Choose Thuy Anh Land?",
+      "subtitle": "Reasons why customers trust and choose us"
+    },
+    "cta": {
+      "title": "Need Real Estate Consultation?",
+      "subtitle": "Contact us now for free consultation",
+      "contact": "Contact for Consultation",
+      "call": "Call Now"
+    },
+    "footer": {
+      "description": "Trusted partner in all real estate transactions. Over 10 years of experience serving customers.",
+      "quickLinks": "Quick Links",
+      "contactInfo": "Contact Information",
+      "newsletter": "Newsletter Signup",
+      "newsletterDesc": "Get the latest real estate market information",
+      "subscribe": "Subscribe",
+      "copyright": "© 2024 Thuy Anh Land. All rights reserved."
+    },
+    "property": {
+      "viewDetails": "View Details",
+      "viewAll": "View All",
+      "bedrooms": "Bedrooms",
+      "bathrooms": "Bathrooms",
+      "area": "Area",
+      "price": "Price",
+      "location": "Location",
+      "type": "Type",
+      "status": "Status",
+      "code": "Property Code",
+      "direction": "Direction",
+      "floors": "Floors",
+      "features": "Key Features",
+      "description": "Detailed Description",
+      "additionalInfo": "Additional Information",
+      "mapLocation": "Map Location",
+      "similarProperties": "Similar Properties",
+      "contactAgent": "Agent Information",
+      "requestConsultation": "Request Consultation",
+      "sendRequest": "Send Request",
+      "fullName": "Full Name",
+      "phone": "Phone Number",
+      "email": "Email",
+      "consultationContent": "Consultation content...",
+      "specialist": "Consultation Specialist",
+      "sendEmail": "Send Email"
+    },
+    "news": {
+      "title": "Real Estate News",
+      "subtitle": "Latest updates on the real estate market",
+      "featured": "Featured News",
+      "latest": "Latest News",
+      "searchNews": "Search news...",
+      "category": "Category",
+      "readMore": "Read More",
+      "author": "Author",
+      "views": "views",
+      "date": "Date"
+    },
+    "newsCategories": {
+      "all": "All",
+      "market-analysis": "Market Analysis",
+      "guide": "Guide",
+      "investment": "Investment",
+      "legal": "Legal",
+      "design": "Design",
+      "new-projects": "New Projects",
+      "tax": "Tax"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "subtitle": "We are always ready to help you with any real estate matters",
+      "sendMessage": "Send us a message",
+      "formDescription": "Fill in the information below and we will contact you as soon as possible",
+      "quickContact": "Quick Contact",
+      "officeLocations": "Office Locations",
+      "connectWithUs": "Connect with Us",
+      "followUs": "Follow us for the latest real estate market updates",
+      "mapTitle": "Main Office Map",
+      "subject": "Subject",
+      "content": "Content",
+      "sendMessageBtn": "Send Message",
+      "hotline": "Hotline",
+      "workingHours": "Working Hours",
+      "workingTime": "8:00 AM - 6:00 PM (Mon-Sat)"
+    },
+    "contactSubjects": {
+      "mua-ban": "Buy/Sell Property",
+      "cho-thue": "Property Rental",
+      "tu-van": "Investment Consultation",
+      "phap-ly": "Legal Support",
+      "khac": "Other"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "common": {
+      "loading": "Loading...",
+      "error": "An error occurred",
+      "noResults": "No results found",
+      "backToHome": "Back to Home"
+    }
+  },
+  "ko": {
+    "nav": {
+      "home": "홈",
+      "about": "소개",
+      "properties": "부동산",
+      "news": "뉴스",
+      "contact": "연락처",
+      "login": "로그인",
+      "register": "회원가입"
+    },
+    "hero": {
+      "title": "꿈의 집을 찾아보세요",
+      "subtitle": "투이 안 랜드 - 부동산 거래의 신뢰할 수 있는 파트너",
+      "cta": "부동산 보기"
+    },
+    "search": {
+      "title": "빠른 검색",
+      "propertyType": "부동산 유형",
+      "location": "위치",
+      "priceRange": "가격대",
+      "search": "검색",
+      "keyword": "키워드로 검색...",
+      "area": "면적",
+      "sortBy": "정렬",
+      "viewMode": "보기",
+      "results": "{count}개의 부동산을 찾았습니다"
+    },
+    "propertyTypes": {
+      "all": "전체",
+      "nha-pho": "타운하우스",
+      "can-ho": "아파트",
+      "biet-thu": "빌라",
+      "dat-nen": "토지"
+    },
+    "locations": {
+      "all": "전체",
+      "quan-1": "1구",
+      "quan-2": "2구",
+      "quan-7": "7구",
+      "quan-9": "9구",
+      "thu-duc": "투득",
+      "binh-thanh": "빈탄"
+    },
+    "priceRanges": {
+      "all": "전체",
+      "duoi-5ty": "3억원 미만",
+      "5-10ty": "3억원 - 6억원",
+      "10-20ty": "6억원 - 12억원",
+      "tren-20ty": "12억원 이상"
+    },
+    "areaRanges": {
+      "all": "전체",
+      "duoi-100": "100m² 미만",
+      "100-200": "100 - 200m²",
+      "200-300": "200 - 300m²",
+      "tren-300": "300m² 이상"
+    },
+    "sortOptions": {
+      "newest": "최신순",
+      "price-low": "가격: 낮은순",
+      "price-high": "가격: 높은순",
+      "area-large": "면적: 큰순"
+    },
+    "about": {
+      "title": "투이 안 랜드 소개",
+      "description": "부동산 분야에서 10년 이상의 경험을 바탕으로, 투이 안 랜드는 수천 명의 고객들이 부동산을 찾고 투자하는 데 있어 신뢰할 수 있는 파트너임을 자랑스럽게 생각합니다."
+    },
+    "featured": {
+      "title": "주요 부동산",
+      "subtitle": "현재 가장 주목받는 프로젝트들"
+    },
+    "whyChoose": {
+      "title": "왜 투이 안 랜드를 선택해야 할까요?",
+      "subtitle": "고객들이 저희를 신뢰하고 선택하는 이유"
+    },
+    "cta": {
+      "title": "부동산 상담이 필요하신가요?",
+      "subtitle": "무료 상담을 위해 지금 연락하세요",
+      "contact": "상담 문의",
+      "call": "지금 전화"
+    },
+    "footer": {
+      "description": "모든 부동산 거래에서 신뢰할 수 있는 파트너. 10년 이상의 고객 서비스 경험.",
+      "quickLinks": "빠른 링크",
+      "contactInfo": "연락처 정보",
+      "newsletter": "뉴스레터 구독",
+      "newsletterDesc": "최신 부동산 시장 정보를 받아보세요",
+      "subscribe": "구독",
+      "copyright": "© 2024 투이 안 랜드. 모든 권리 보유."
+    },
+    "property": {
+      "viewDetails": "자세히 보기",
+      "viewAll": "모두 보기",
+      "bedrooms": "침실",
+      "bathrooms": "욕실",
+      "area": "면적",
+      "price": "가격",
+      "location": "위치",
+      "type": "유형",
+      "status": "상태",
+      "code": "부동산 코드",
+      "direction": "방향",
+      "floors": "층수",
+      "features": "주요 특징",
+      "description": "상세 설명",
+      "additionalInfo": "추가 정보",
+      "mapLocation": "지도 위치",
+      "similarProperties": "유사한 부동산",
+      "contactAgent": "중개인 정보",
+      "requestConsultation": "상담 요청",
+      "sendRequest": "요청 보내기",
+      "fullName": "성명",
+      "phone": "전화번호",
+      "email": "이메일",
+      "consultationContent": "상담 내용...",
+      "specialist": "상담 전문가",
+      "sendEmail": "이메일 보내기"
+    },
+    "news": {
+      "title": "부동산 뉴스",
+      "subtitle": "부동산 시장의 최신 업데이트",
+      "featured": "주요 뉴스",
+      "latest": "최신 뉴스",
+      "searchNews": "뉴스 검색...",
+      "category": "카테고리",
+      "readMore": "더 읽기",
+      "author": "작성자",
+      "views": "조회수",
+      "date": "날짜"
+    },
+    "newsCategories": {
+      "all": "전체",
+      "market-analysis": "시장 분석",
+      "guide": "가이드",
+      "investment": "투자",
+      "legal": "법률",
+      "design": "디자인",
+      "new-projects": "신규 프로젝트",
+      "tax": "세금"
+    },
+    "contact": {
+      "title": "연락처",
+      "subtitle": "부동산 관련 모든 문제에 대해 언제든지 도움을 드릴 준비가 되어 있습니다",
+      "sendMessage": "메시지 보내기",
+      "formDescription": "아래 정보를 입력해 주시면 가능한 한 빨리 연락드리겠습니다",
+      "quickContact": "빠른 연락",
+      "officeLocations": "사무실 위치",
+      "connectWithUs": "소셜 미디어",
+      "followUs": "최신 부동산 시장 업데이트를 위해 팔로우하세요",
+      "mapTitle": "본사 지도",
+      "subject": "제목",
+      "content": "내용",
+      "sendMessageBtn": "메시지 보내기",
+      "hotline": "핫라인",
+      "workingHours": "근무 시간",
+      "workingTime": "오전 8:00 - 오후 6:00 (월-토)"
+    },
+    "contactSubjects": {
+      "mua-ban": "부동산 매매",
+      "cho-thue": "부동산 임대",
+      "tu-van": "투자 상담",
+      "phap-ly": "법률 지원",
+      "khac": "기타"
+    },
+    "pagination": {
+      "previous": "이전",
+      "next": "다음"
+    },
+    "common": {
+      "loading": "로딩 중...",
+      "error": "오류가 발생했습니다",
+      "noResults": "결과를 찾을 수 없습니다",
+      "backToHome": "홈으로 돌아가기"
+    }
+  }
+}
