@@ -1,83 +1,98 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { MapPin, Phone, Mail, Clock, Facebook, Youtube } from "lucide-react"
-import { useLanguage } from "@/contexts/language-context"
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { MapPin, Phone, Mail, Clock, Facebook, Youtube } from "lucide-react";
+import { useLanguage } from "@/contexts/language-context";
 
 export default function ContactPage() {
-  const { t, language } = useLanguage()
+  const { t, language } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
     subject: "",
     message: "",
-  })
+  });
+  const [contact, setContact] = useState<{
+    hotline: string;
+    email: string;
+    workingHours: string;
+  } | null>(null);
+  const [offices, setOffices] = useState<any[]>([]);
+  const [social, setSocial] = useState<{
+    facebook: string;
+    youtube: string;
+  } | null>(null);
+  const [mainOfficeMap, setMainOfficeMap] = useState<{
+    address: string;
+    googleMapLink: string;
+  } | null>(null);
+
+  useEffect(() => {
+    fetch("/api/contact")
+      .then((res) => res.json())
+      .then((data) => setContact(data.contact))
+      .catch(() => setContact(null));
+  }, []);
+
+  useEffect(() => {
+    fetch(`/api/office?lang=${language}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data.office)) setOffices(data.office);
+        else if (data.office) setOffices([data.office]);
+        else setOffices([]);
+      })
+      .catch(() => setOffices([]));
+  }, [language]);
+
+  useEffect(() => {
+    fetch("/api/social")
+      .then((res) => res.json())
+      .then((data) => setSocial(data.social))
+      .catch(() => setSocial(null));
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/mainoffice-map")
+      .then((res) => res.json())
+      .then((data) => setMainOfficeMap(data.mainOfficeMap))
+      .catch(() => setMainOfficeMap(null));
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     // Handle form submission
-    console.log("Form submitted:", formData)
-    alert("Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.")
-  }
+    console.log("Form submitted:", formData);
+    alert(
+      "Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong thời gian sớm nhất."
+    );
+  };
 
   const handleChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
-  }
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
-  const offices = [
-    {
-      name: {
-        vi: "Văn phòng chính - Quận 1",
-        en: "Main Office - District 1",
-        ko: "본사 - 1구",
-      },
-      address: {
-        vi: "123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP.HCM",
-        en: "123 Nguyen Hue Street, Ben Nghe Ward, District 1, HCMC",
-        ko: "호치민시 1구 벤게동 응우옌후에거리 123번지",
-      },
-      phone: "028 3822 1234",
-      email: "quan1@thuyanhland.com",
-    },
-    {
-      name: {
-        vi: "Chi nhánh Quận 7",
-        en: "District 7 Branch",
-        ko: "7구 지점",
-      },
-      address: {
-        vi: "456 Đường Nguyễn Thị Thập, Phường Tân Phú, Quận 7, TP.HCM",
-        en: "456 Nguyen Thi Thap Street, Tan Phu Ward, District 7, HCMC",
-        ko: "호치민시 7구 탄푸동 응우옌티탑거리 456번지",
-      },
-      phone: "028 5412 5678",
-      email: "quan7@thuyanhland.com",
-    },
-    {
-      name: {
-        vi: "Chi nhánh Thủ Đức",
-        en: "Thu Duc Branch",
-        ko: "투득 지점",
-      },
-      address: {
-        vi: "789 Đường Võ Văn Ngân, Phường Linh Chiểu, TP. Thủ Đức, TP.HCM",
-        en: "789 Vo Van Ngan Street, Linh Chieu Ward, Thu Duc City, HCMC",
-        ko: "호치민시 투득시 린치에우동 보반간거리 789번지",
-      },
-      phone: "028 3715 9012",
-      email: "thuduc@thuyanhland.com",
-    },
-  ]
-
-  const contactSubjects = ["mua-ban", "cho-thue", "tu-van", "phap-ly", "khac"]
+  const contactSubjects = ["mua-ban", "cho-thue", "tu-van", "phap-ly", "khac"];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -98,13 +113,17 @@ export default function ContactPage() {
                 <CardTitle className="text-2xl bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
                   {t("contact.sendMessage")}
                 </CardTitle>
-                <CardDescription>{t("contact.formDescription")}</CardDescription>
+                <CardDescription>
+                  {t("contact.formDescription")}
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium mb-2">{t("property.fullName")} *</label>
+                      <label className="block text-sm font-medium mb-2">
+                        {t("property.fullName")} *
+                      </label>
                       <Input
                         required
                         value={formData.name}
@@ -114,7 +133,9 @@ export default function ContactPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-2">{t("property.phone")} *</label>
+                      <label className="block text-sm font-medium mb-2">
+                        {t("property.phone")} *
+                      </label>
                       <Input
                         required
                         type="tel"
@@ -127,7 +148,9 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">{t("property.email")}</label>
+                    <label className="block text-sm font-medium mb-2">
+                      {t("property.email")}
+                    </label>
                     <Input
                       type="email"
                       value={formData.email}
@@ -138,8 +161,12 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">{t("contact.subject")}</label>
-                    <Select onValueChange={(value) => handleChange("subject", value)}>
+                    <label className="block text-sm font-medium mb-2">
+                      {t("contact.subject")}
+                    </label>
+                    <Select
+                      onValueChange={(value) => handleChange("subject", value)}
+                    >
                       <SelectTrigger className="border-2 border-gray-200 focus:border-primary-500 transition-colors">
                         <SelectValue placeholder={t("contact.subject")} />
                       </SelectTrigger>
@@ -154,7 +181,9 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">{t("contact.content")} *</label>
+                    <label className="block text-sm font-medium mb-2">
+                      {t("contact.content")} *
+                    </label>
                     <Textarea
                       required
                       rows={5}
@@ -190,21 +219,29 @@ export default function ContactPage() {
                   <Phone className="h-5 w-5 text-primary-600" />
                   <div>
                     <div className="font-medium">{t("contact.hotline")}</div>
-                    <div className="text-gray-600">0123 456 789</div>
+                    <div className="text-gray-600">
+                      {contact ? contact.hotline : "..."}
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Mail className="h-5 w-5 text-primary-600" />
                   <div>
                     <div className="font-medium">{t("property.email")}</div>
-                    <div className="text-gray-600">info@thuyanhland.com</div>
+                    <div className="text-gray-600">
+                      {contact ? contact.email : "..."}
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Clock className="h-5 w-5 text-primary-600" />
                   <div>
-                    <div className="font-medium">{t("contact.workingHours")}</div>
-                    <div className="text-gray-600">{t("contact.workingTime")}</div>
+                    <div className="font-medium">
+                      {t("contact.workingHours")}
+                    </div>
+                    <div className="text-gray-600">
+                      {contact ? contact.workingHours : "..."}
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -218,25 +255,34 @@ export default function ContactPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
-                {offices.map((office, index) => (
-                  <div key={index} className="border-b border-gray-200 last:border-b-0 pb-4 last:pb-0">
-                    <h4 className="font-semibold mb-2">{office.name[language]}</h4>
-                    <div className="space-y-2 text-sm text-gray-600">
-                      <div className="flex items-start space-x-2">
-                        <MapPin className="h-4 w-4 mt-0.5 text-primary-600" />
-                        <span>{office.address[language]}</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Phone className="h-4 w-4 text-primary-600" />
-                        <span>{office.phone}</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Mail className="h-4 w-4 text-primary-600" />
-                        <span>{office.email}</span>
+                {offices.length === 0 ? (
+                  <div className="text-gray-500">
+                    Không có dữ liệu văn phòng
+                  </div>
+                ) : (
+                  offices.map((office, index) => (
+                    <div
+                      key={index}
+                      className="border-b border-gray-200 last:border-b-0 pb-4 last:pb-0"
+                    >
+                      <h4 className="font-semibold mb-2">{office.name}</h4>
+                      <div className="space-y-2 text-sm text-gray-600">
+                        <div className="flex items-start space-x-2">
+                          <MapPin className="h-4 w-4 mt-0.5 text-primary-600" />
+                          <span>{office.address}</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Phone className="h-4 w-4 text-primary-600" />
+                          <span>{office.phone}</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Mail className="h-4 w-4 text-primary-600" />
+                          <span>{office.email || office.gmail}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </CardContent>
             </Card>
 
@@ -250,23 +296,41 @@ export default function ContactPage() {
               <CardContent>
                 <div className="flex space-x-4">
                   <Button
+                    asChild
                     variant="outline"
                     size="sm"
                     className="flex items-center space-x-2 border-2 hover:bg-primary-50"
+                    disabled={!social?.facebook}
                   >
-                    <Facebook className="h-4 w-4" />
-                    <span>Facebook</span>
+                    <a
+                      href={social?.facebook || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Facebook className="h-4 w-4" />
+                      <span>Facebook</span>
+                    </a>
                   </Button>
                   <Button
+                    asChild
                     variant="outline"
                     size="sm"
                     className="flex items-center space-x-2 border-2 hover:bg-primary-50"
+                    disabled={!social?.youtube}
                   >
-                    <Youtube className="h-4 w-4" />
-                    <span>YouTube</span>
+                    <a
+                      href={social?.youtube || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Youtube className="h-4 w-4" />
+                      <span>YouTube</span>
+                    </a>
                   </Button>
                 </div>
-                <p className="text-sm text-gray-600 mt-4">{t("contact.followUs")}</p>
+                <p className="text-sm text-gray-600 mt-4">
+                  {t("contact.followUs")}
+                </p>
               </CardContent>
             </Card>
           </div>
@@ -279,16 +343,42 @@ export default function ContactPage() {
               <CardTitle className="bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
                 {t("contact.mapTitle")}
               </CardTitle>
-              <CardDescription>123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP.HCM</CardDescription>
+              <CardDescription>
+                {mainOfficeMap ? mainOfficeMap.address : "..."}
+              </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="w-full h-96 bg-gray-200 rounded-lg flex items-center justify-center">
-                <p className="text-gray-500">Google Maps sẽ được tích hợp tại đây</p>
+              <div className="w-full h-96 bg-gray-200 rounded-lg overflow-hidden">
+                {mainOfficeMap && mainOfficeMap.googleMapLink ? (
+                  mainOfficeMap.googleMapLink.includes("iframe") ? (
+                    <div
+                      className="w-full h-full"
+                      dangerouslySetInnerHTML={{
+                        __html: mainOfficeMap.googleMapLink,
+                      }}
+                    />
+                  ) : (
+                    <iframe
+                      src={mainOfficeMap.googleMapLink}
+                      // width="100%"
+                      // height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title="Google Map"
+                    />
+                  )
+                ) : (
+                  <p className="text-gray-500 flex items-center justify-center h-full">
+                    Google Maps sẽ được tích hợp tại đây
+                  </p>
+                )}
               </div>
             </CardContent>
           </Card>
         </div>
       </div>
     </div>
-  )
+  );
 }
