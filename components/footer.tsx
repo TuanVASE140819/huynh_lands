@@ -1,13 +1,42 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Facebook, Youtube, Phone, Mail, MapPin } from "lucide-react"
-import { useLanguage } from "@/contexts/language-context"
+import Link from "next/link";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Facebook, Youtube, Phone, Mail, MapPin } from "lucide-react";
+import { useLanguage } from "@/contexts/language-context";
+import { useEffect, useState } from "react";
 
 export default function Footer() {
-  const { t } = useLanguage()
+  const { t } = useLanguage();
+
+  const [contact, setContact] = useState<{
+    hotline: string;
+    email: string;
+  } | null>(null);
+  const [mainOffice, setMainOffice] = useState<{ address: string } | null>(
+    null
+  );
+
+  useEffect(() => {
+    fetch("/api/contact")
+      .then((res) => res.json())
+      .then((data) => setContact(data.contact || null))
+      .catch(() => setContact(null));
+    fetch("/api/office?lang=vi")
+      .then((res) => res.json())
+      .then((data) => {
+        // Ưu tiên lấy văn phòng đầu tiên làm văn phòng chính
+        if (Array.isArray(data.office) && data.office.length > 0) {
+          setMainOffice({ address: data.office[0].address });
+        } else if (data.office && data.office.address) {
+          setMainOffice({ address: data.office.address });
+        } else {
+          setMainOffice(null);
+        }
+      })
+      .catch(() => setMainOffice(null));
+  }, []);
 
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
@@ -28,10 +57,16 @@ export default function Footer() {
             </div>
             <p className="text-gray-400 mb-4">{t("footer.description")}</p>
             <div className="flex space-x-4">
-              <Link href="#" className="text-gray-400 hover:text-primary-400 transition-colors">
+              <Link
+                href="#"
+                className="text-gray-400 hover:text-primary-400 transition-colors"
+              >
                 <Facebook className="h-5 w-5" />
               </Link>
-              <Link href="#" className="text-gray-400 hover:text-red-400 transition-colors">
+              <Link
+                href="#"
+                className="text-gray-400 hover:text-red-400 transition-colors"
+              >
                 <Youtube className="h-5 w-5" />
               </Link>
             </div>
@@ -44,22 +79,34 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/gioi-thieu" className="text-gray-400 hover:text-white transition-colors">
+                <Link
+                  href="/gioi-thieu"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
                   {t("nav.about")}
                 </Link>
               </li>
               <li>
-                <Link href="/bat-dong-san" className="text-gray-400 hover:text-white transition-colors">
+                <Link
+                  href="/bat-dong-san"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
                   {t("nav.properties")}
                 </Link>
               </li>
               <li>
-                <Link href="/tin-tuc" className="text-gray-400 hover:text-white transition-colors">
+                <Link
+                  href="/tin-tuc"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
                   {t("nav.news")}
                 </Link>
               </li>
               <li>
-                <Link href="/lien-he" className="text-gray-400 hover:text-white transition-colors">
+                <Link
+                  href="/lien-he"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
                   {t("nav.contact")}
                 </Link>
               </li>
@@ -74,15 +121,19 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center space-x-2">
                 <Phone className="h-4 w-4 text-primary-400" />
-                <span className="text-gray-400">0123 456 789</span>
+                <span className="text-gray-400">
+                  {contact?.hotline || "..."}
+                </span>
               </li>
               <li className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-primary-400" />
-                <span className="text-gray-400">info@thuyanhland.com</span>
+                <span className="text-gray-400">{contact?.email || "..."}</span>
               </li>
               <li className="flex items-start space-x-2">
                 <MapPin className="h-4 w-4 text-primary-400 mt-1" />
-                <span className="text-gray-400">123 Đường ABC, Quận 1, TP.HCM</span>
+                <span className="text-gray-400">
+                  {mainOffice?.address || "..."}
+                </span>
               </li>
             </ul>
           </div>
@@ -111,5 +162,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
