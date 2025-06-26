@@ -64,9 +64,18 @@ export default function AboutPage() {
   ];
 
   const { language } = useLanguage();
-  const [history, setHistory] = useState<{ title: string; content: string } | null>(null);
-  const [mission, setMission] = useState<{ title: string; content: string } | null>(null);
-  const [vision, setVision] = useState<{ title: string; content: string } | null>(null);
+  const [history, setHistory] = useState<{
+    title: string;
+    content: string;
+  } | null>(null);
+  const [mission, setMission] = useState<{
+    title: string;
+    content: string;
+  } | null>(null);
+  const [vision, setVision] = useState<{
+    title: string;
+    content: string;
+  } | null>(null);
 
   useEffect(() => {
     fetch(`/api/history?lang=${language}`)
@@ -114,7 +123,7 @@ export default function AboutPage() {
       <section className="relative h-96 bg-gradient-to-r from-blue-900 to-blue-700 flex items-center justify-center text-white">
         <div className="absolute inset-0 bg-black/30"></div>
         <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-4">Về Thùy Anh Land</h1>
+          <h1 className="text-4xl font-bold mb-4">Về Huỳnh Land</h1>
           <p className="text-xl">
             Đối tác tin cậy trong mọi giao dịch bất động sản
           </p>
@@ -133,7 +142,7 @@ export default function AboutPage() {
                 <p>
                   {history?.content || (
                     <>
-                      Thùy Anh Land được thành lập vào năm 2009 với sứ mệnh mang
+                      Huỳnh Land được thành lập vào năm 2009 với sứ mệnh mang
                       đến những giải pháp bất động sản tối ưu cho khách hàng. Từ
                       một công ty nhỏ với đội ngũ chỉ 5 người, chúng tôi đã phát
                       triển thành một trong những thương hiệu uy tín hàng đầu
@@ -146,7 +155,7 @@ export default function AboutPage() {
             <div>
               <Image
                 src="/placeholder.svg?height=400&width=600"
-                alt="Thùy Anh Land Office"
+                alt="Huỳnh Land Office"
                 width={600}
                 height={400}
                 className="rounded-lg shadow-lg"
@@ -187,8 +196,7 @@ export default function AboutPage() {
               <CardContent>
                 <p className="text-gray-600">
                   {vision?.content ||
-                    "Trở thành công ty bất động sản hàng đầu Việt Nam, được khách hàng tin tưởng và lựa chọn số 1 trong mọi giao dịch bất động sản."
-                  }
+                    "Trở thành công ty bất động sản hàng đầu Việt Nam, được khách hàng tin tưởng và lựa chọn số 1 trong mọi giao dịch bất động sản."}
                 </p>
               </CardContent>
             </Card>
@@ -269,7 +277,7 @@ export default function AboutPage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Đội ngũ lãnh đạo</h2>
             <p className="text-lg text-gray-600">
-              Những người dẫn dắt Thùy Anh Land phát triển
+              Những người dẫn dắt Huỳnh Land phát triển
             </p>
           </div>
 
@@ -301,7 +309,7 @@ export default function AboutPage() {
         <section className="mb-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">
-              Tại sao chọn Thùy Anh Land?
+              Tại sao chọn Huỳnh Land?
             </h2>
             <p className="text-lg text-gray-600">
               Những lợi thế cạnh tranh của chúng tôi

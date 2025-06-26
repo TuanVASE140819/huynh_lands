@@ -50,7 +50,7 @@ export default function Footer() {
               </div>
               <div>
                 <div className="font-bold text-xl bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent">
-                  Thùy Anh Land
+                  Huỳnh Land
                 </div>
                 <div className="text-sm text-gray-400">Bất động sản uy tín</div>
               </div>

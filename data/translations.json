@@ -7,11 +7,13 @@
       "news": "Tin tức",
       "contact": "Liên hệ",
       "login": "Đăng nhập",
-      "register": "Đăng ký"
+      "register": "Đăng ký",
+      "rent": "Thuê Bất Động Sản",
+      "buy": "Mua Bất Động Sản"
     },
     "hero": {
       "title": "Tìm kiếm ngôi nhà mơ ước của bạn",
-      "subtitle": "Thùy Anh Land - Đối tác tin cậy trong mọi giao dịch bất động sản",
+      "subtitle": "Huỳnh Land - Đối tác tin cậy trong mọi giao dịch bất động sản",
       "cta": "Xem danh sách BĐS"
     },
     "search": {
@@ -63,15 +65,15 @@
       "area-large": "Diện tích lớn nhất"
     },
     "about": {
-      "title": "Giới thiệu Thùy Anh Land",
-      "description": "Với hơn 10 năm kinh nghiệm trong lĩnh vực bất động sản, Thùy Anh Land tự hào là đối tác tin cậy của hàng nghìn khách hàng trong việc tìm kiếm và đầu tư bất động sản."
+      "title": "Giới thiệu Huỳnh Land",
+      "description": "Với hơn 10 năm kinh nghiệm trong lĩnh vực bất động sản, Huỳnh Land tự hào là đối tác tin cậy của hàng nghìn khách hàng trong việc tìm kiếm và đầu tư bất động sản."
     },
     "featured": {
       "title": "Bất động sản nổi bật",
       "subtitle": "Những dự án được quan tâm nhất hiện tại"
     },
     "whyChoose": {
-      "title": "Tại sao chọn Thùy Anh Land?",
+      "title": "Tại sao chọn Huỳnh Land?",
       "subtitle": "Những lý do khách hàng tin tưởng chọn chúng tôi"
     },
     "cta": {
@@ -87,7 +89,7 @@
       "newsletter": "Đăng ký nhận tin",
       "newsletterDesc": "Nhận thông tin mới nhất về thị trường BĐS",
       "subscribe": "Đăng ký",
-      "copyright": "© 2024 Thùy Anh Land. Tất cả quyền được bảo lưu."
+      "copyright": "© 2024 Huỳnh Land. Tất cả quyền được bảo lưu."
     },
     "property": {
       "viewDetails": "Xem chi tiết",

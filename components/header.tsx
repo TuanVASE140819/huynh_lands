@@ -1,17 +1,23 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Menu, X, Search, Phone } from "lucide-react"
-import { useLanguage } from "@/contexts/language-context"
-import LanguageSwitcher from "@/components/language-switcher"
+import Link from "next/link";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Menu, X, Search, Phone } from "lucide-react";
+import { useLanguage } from "@/contexts/language-context";
+import LanguageSwitcher from "@/components/language-switcher";
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const { t } = useLanguage()
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
@@ -41,7 +47,7 @@ export default function Header() {
             </div>
             <div>
               <div className="font-bold text-xl bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
-                Thùy Anh Land
+                Huỳnh Land
               </div>
               <div className="text-sm text-gray-600">Bất động sản uy tín</div>
             </div>
@@ -49,19 +55,40 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-primary-600 font-medium transition-colors">
+            <Link
+              href="/"
+              className="text-gray-700 hover:text-primary-600 font-medium transition-colors"
+            >
               {t("nav.home")}
             </Link>
-            <Link href="/gioi-thieu" className="text-gray-700 hover:text-primary-600 font-medium transition-colors">
+            <Link
+              href="/gioi-thieu"
+              className="text-gray-700 hover:text-primary-600 font-medium transition-colors"
+            >
               {t("nav.about")}
             </Link>
-            <Link href="/bat-dong-san" className="text-gray-700 hover:text-primary-600 font-medium transition-colors">
-              {t("nav.properties")}
+            <Link
+              href="/bat-dong-san/thue"
+              className="text-gray-700 hover:text-primary-600 font-medium transition-colors"
+            >
+              {t("nav.rent")}
             </Link>
-            <Link href="/tin-tuc" className="text-gray-700 hover:text-primary-600 font-medium transition-colors">
+            <Link
+              href="/bat-dong-san/mua"
+              className="text-gray-700 hover:text-primary-600 font-medium transition-colors"
+            >
+              {t("nav.buy")}
+            </Link>
+            <Link
+              href="/tin-tuc"
+              className="text-gray-700 hover:text-primary-600 font-medium transition-colors"
+            >
               {t("nav.news")}
             </Link>
-            <Link href="/lien-he" className="text-gray-700 hover:text-primary-600 font-medium transition-colors">
+            <Link
+              href="/lien-he"
+              className="text-gray-700 hover:text-primary-600 font-medium transition-colors"
+            >
               {t("nav.contact")}
             </Link>
           </nav>
@@ -80,8 +107,15 @@ export default function Header() {
           </div>
 
           {/* Mobile menu button */}
-          <button className="lg:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          <button
+            className="lg:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
           </button>
         </div>
 
@@ -93,10 +127,18 @@ export default function Header() {
                 <SelectValue placeholder={t("search.propertyType")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="nha-pho">{t("propertyTypes.nha-pho")}</SelectItem>
-                <SelectItem value="can-ho">{t("propertyTypes.can-ho")}</SelectItem>
-                <SelectItem value="biet-thu">{t("propertyTypes.biet-thu")}</SelectItem>
-                <SelectItem value="dat-nen">{t("propertyTypes.dat-nen")}</SelectItem>
+                <SelectItem value="nha-pho">
+                  {t("propertyTypes.nha-pho")}
+                </SelectItem>
+                <SelectItem value="can-ho">
+                  {t("propertyTypes.can-ho")}
+                </SelectItem>
+                <SelectItem value="biet-thu">
+                  {t("propertyTypes.biet-thu")}
+                </SelectItem>
+                <SelectItem value="dat-nen">
+                  {t("propertyTypes.dat-nen")}
+                </SelectItem>
               </SelectContent>
             </Select>
             <Select>
@@ -106,8 +148,12 @@ export default function Header() {
               <SelectContent>
                 <SelectItem value="quan-1">{t("locations.quan-1")}</SelectItem>
                 <SelectItem value="quan-7">{t("locations.quan-7")}</SelectItem>
-                <SelectItem value="thu-duc">{t("locations.thu-duc")}</SelectItem>
-                <SelectItem value="binh-thanh">{t("locations.binh-thanh")}</SelectItem>
+                <SelectItem value="thu-duc">
+                  {t("locations.thu-duc")}
+                </SelectItem>
+                <SelectItem value="binh-thanh">
+                  {t("locations.binh-thanh")}
+                </SelectItem>
               </SelectContent>
             </Select>
             <Select>
@@ -115,10 +161,18 @@ export default function Header() {
                 <SelectValue placeholder={t("search.priceRange")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="duoi-5ty">{t("priceRanges.duoi-5ty")}</SelectItem>
-                <SelectItem value="5-10ty">{t("priceRanges.5-10ty")}</SelectItem>
-                <SelectItem value="10-20ty">{t("priceRanges.10-20ty")}</SelectItem>
-                <SelectItem value="tren-20ty">{t("priceRanges.tren-20ty")}</SelectItem>
+                <SelectItem value="duoi-5ty">
+                  {t("priceRanges.duoi-5ty")}
+                </SelectItem>
+                <SelectItem value="5-10ty">
+                  {t("priceRanges.5-10ty")}
+                </SelectItem>
+                <SelectItem value="10-20ty">
+                  {t("priceRanges.10-20ty")}
+                </SelectItem>
+                <SelectItem value="tren-20ty">
+                  {t("priceRanges.tren-20ty")}
+                </SelectItem>
               </SelectContent>
             </Select>
             <div className="flex-1">
@@ -135,19 +189,40 @@ export default function Header() {
       {isMenuOpen && (
         <div className="lg:hidden bg-white border-t">
           <nav className="container mx-auto px-4 py-4 space-y-4">
-            <Link href="/" className="block text-gray-700 hover:text-blue-600 font-medium">
+            <Link
+              href="/"
+              className="block text-gray-700 hover:text-blue-600 font-medium"
+            >
               {t("nav.home")}
             </Link>
-            <Link href="/gioi-thieu" className="block text-gray-700 hover:text-blue-600 font-medium">
+            <Link
+              href="/gioi-thieu"
+              className="block text-gray-700 hover:text-blue-600 font-medium"
+            >
               {t("nav.about")}
             </Link>
-            <Link href="/bat-dong-san" className="block text-gray-700 hover:text-blue-600 font-medium">
-              {t("nav.properties")}
+            <Link
+              href="/bat-dong-san/thue"
+              className="block text-gray-700 hover:text-blue-600 font-medium"
+            >
+              {t("nav.rent")}
             </Link>
-            <Link href="/tin-tuc" className="block text-gray-700 hover:text-blue-600 font-medium">
+            <Link
+              href="/bat-dong-san/mua"
+              className="block text-gray-700 hover:text-blue-600 font-medium"
+            >
+              {t("nav.buy")}
+            </Link>
+            <Link
+              href="/tin-tuc"
+              className="block text-gray-700 hover:text-blue-600 font-medium"
+            >
               {t("nav.news")}
             </Link>
-            <Link href="/lien-he" className="block text-gray-700 hover:text-blue-600 font-medium">
+            <Link
+              href="/lien-he"
+              className="block text-gray-700 hover:text-blue-600 font-medium"
+            >
               {t("nav.contact")}
             </Link>
             <div className="pt-4 border-t flex items-center justify-between">
@@ -163,5 +238,5 @@ export default function Header() {
         </div>
       )}
     </header>
-  )
+  );
 }

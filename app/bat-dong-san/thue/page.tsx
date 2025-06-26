@@ -1,46 +1,67 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { MapPin, Bed, Bath, Square, Grid, List, Heart, ArrowUp } from "lucide-react"
-import { useLanguage } from "@/contexts/language-context"
-import propertiesData from "@/data/properties.json"
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import {
+  MapPin,
+  Bed,
+  Bath,
+  Square,
+  Grid,
+  List,
+  Heart,
+  ArrowUp,
+} from "lucide-react";
+import { useLanguage } from "@/contexts/language-context";
+import propertiesData from "@/data/properties.json";
 
-export default function PropertiesPage() {
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
-  const [showScrollTop, setShowScrollTop] = useState(false)
-  const { t, language } = useLanguage()
+export default function ThuePage() {
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const { t, language } = useLanguage();
 
-  // Combine featured and all properties
-  const allProperties = [...propertiesData.featuredProperties, ...propertiesData.allProperties]
+  // Lọc bất động sản cho thuê (ví dụ: Căn hộ, Nhà phố)
+  const allProperties = [
+    ...propertiesData.featuredProperties,
+    ...propertiesData.allProperties,
+  ].filter(
+    (property) =>
+      property.type?.vi === "Căn hộ" || property.type?.vi === "Nhà phố"
+  );
 
-  // Scroll to top on page load
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }, [])
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
-  // Show/hide scroll to top button
   useEffect(() => {
     const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 400)
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+      setShowScrollTop(window.scrollY > 400);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    })
-  }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -48,7 +69,7 @@ export default function PropertiesPage() {
         {/* Page Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
-            {t("nav.properties")}
+            {t("nav.rent")}
           </h1>
           <p className="text-gray-600">{t("featured.subtitle")}</p>
         </div>
@@ -62,10 +83,18 @@ export default function PropertiesPage() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">{t("propertyTypes.all")}</SelectItem>
-                <SelectItem value="nha-pho">{t("propertyTypes.nha-pho")}</SelectItem>
-                <SelectItem value="can-ho">{t("propertyTypes.can-ho")}</SelectItem>
-                <SelectItem value="biet-thu">{t("propertyTypes.biet-thu")}</SelectItem>
-                <SelectItem value="dat-nen">{t("propertyTypes.dat-nen")}</SelectItem>
+                <SelectItem value="nha-pho">
+                  {t("propertyTypes.nha-pho")}
+                </SelectItem>
+                <SelectItem value="can-ho">
+                  {t("propertyTypes.can-ho")}
+                </SelectItem>
+                <SelectItem value="biet-thu">
+                  {t("propertyTypes.biet-thu")}
+                </SelectItem>
+                <SelectItem value="dat-nen">
+                  {t("propertyTypes.dat-nen")}
+                </SelectItem>
               </SelectContent>
             </Select>
 
@@ -79,7 +108,9 @@ export default function PropertiesPage() {
                 <SelectItem value="quan-2">{t("locations.quan-2")}</SelectItem>
                 <SelectItem value="quan-7">{t("locations.quan-7")}</SelectItem>
                 <SelectItem value="quan-9">{t("locations.quan-9")}</SelectItem>
-                <SelectItem value="thu-duc">{t("locations.thu-duc")}</SelectItem>
+                <SelectItem value="thu-duc">
+                  {t("locations.thu-duc")}
+                </SelectItem>
               </SelectContent>
             </Select>
 
@@ -89,10 +120,18 @@ export default function PropertiesPage() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">{t("priceRanges.all")}</SelectItem>
-                <SelectItem value="duoi-5ty">{t("priceRanges.duoi-5ty")}</SelectItem>
-                <SelectItem value="5-10ty">{t("priceRanges.5-10ty")}</SelectItem>
-                <SelectItem value="10-20ty">{t("priceRanges.10-20ty")}</SelectItem>
-                <SelectItem value="tren-20ty">{t("priceRanges.tren-20ty")}</SelectItem>
+                <SelectItem value="duoi-5ty">
+                  {t("priceRanges.duoi-5ty")}
+                </SelectItem>
+                <SelectItem value="5-10ty">
+                  {t("priceRanges.5-10ty")}
+                </SelectItem>
+                <SelectItem value="10-20ty">
+                  {t("priceRanges.10-20ty")}
+                </SelectItem>
+                <SelectItem value="tren-20ty">
+                  {t("priceRanges.tren-20ty")}
+                </SelectItem>
               </SelectContent>
             </Select>
 
@@ -102,10 +141,18 @@ export default function PropertiesPage() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">{t("areaRanges.all")}</SelectItem>
-                <SelectItem value="duoi-100">{t("areaRanges.duoi-100")}</SelectItem>
-                <SelectItem value="100-200">{t("areaRanges.100-200")}</SelectItem>
-                <SelectItem value="200-300">{t("areaRanges.200-300")}</SelectItem>
-                <SelectItem value="tren-300">{t("areaRanges.tren-300")}</SelectItem>
+                <SelectItem value="duoi-100">
+                  {t("areaRanges.duoi-100")}
+                </SelectItem>
+                <SelectItem value="100-200">
+                  {t("areaRanges.100-200")}
+                </SelectItem>
+                <SelectItem value="200-300">
+                  {t("areaRanges.200-300")}
+                </SelectItem>
+                <SelectItem value="tren-300">
+                  {t("areaRanges.tren-300")}
+                </SelectItem>
               </SelectContent>
             </Select>
 
@@ -114,10 +161,18 @@ export default function PropertiesPage() {
                 <SelectValue placeholder={t("search.sortBy")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="newest">{t("sortOptions.newest")}</SelectItem>
-                <SelectItem value="price-low">{t("sortOptions.price-low")}</SelectItem>
-                <SelectItem value="price-high">{t("sortOptions.price-high")}</SelectItem>
-                <SelectItem value="area-large">{t("sortOptions.area-large")}</SelectItem>
+                <SelectItem value="newest">
+                  {t("sortOptions.newest")}
+                </SelectItem>
+                <SelectItem value="price-low">
+                  {t("sortOptions.price-low")}
+                </SelectItem>
+                <SelectItem value="price-high">
+                  {t("sortOptions.price-high")}
+                </SelectItem>
+                <SelectItem value="area-large">
+                  {t("sortOptions.area-large")}
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -125,7 +180,9 @@ export default function PropertiesPage() {
           <div className="flex justify-between items-center">
             <Input placeholder={t("search.keyword")} className="max-w-md" />
             <div className="flex items-center space-x-2">
-              <span className="text-sm text-gray-600">{t("search.viewMode")}:</span>
+              <span className="text-sm text-gray-600">
+                {t("search.viewMode")}:
+              </span>
               <Button
                 variant={viewMode === "grid" ? "default" : "outline"}
                 size="sm"
@@ -146,11 +203,22 @@ export default function PropertiesPage() {
 
         {/* Results */}
         <div className="mb-4">
-          <p className="text-gray-600">{t("search.results").replace("{count}", allProperties.length.toString())}</p>
+          <p className="text-gray-600">
+            {t("search.results").replace(
+              "{count}",
+              allProperties.length.toString()
+            )}
+          </p>
         </div>
 
         {/* Properties Grid/List */}
-        <div className={viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : "space-y-6"}>
+        <div
+          className={
+            viewMode === "grid"
+              ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              : "space-y-6"
+          }
+        >
           {allProperties.map((property) => (
             <Card
               key={property.id}
@@ -165,7 +233,9 @@ export default function PropertiesPage() {
                     alt={property.title[language]}
                     width={300}
                     height={200}
-                    className={`object-cover ${viewMode === "list" ? "w-full h-full" : "w-full h-48"}`}
+                    className={`object-cover ${
+                      viewMode === "list" ? "w-full h-full" : "w-full h-48"
+                    }`}
                   />
                   <Badge className="absolute top-2 left-2 bg-gradient-to-r from-primary-600 to-accent-600 text-white border-0">
                     {property.type[language]}
@@ -178,7 +248,9 @@ export default function PropertiesPage() {
 
               <div className={viewMode === "list" ? "w-2/3" : ""}>
                 <CardHeader>
-                  <CardTitle className="text-lg">{property.title[language]}</CardTitle>
+                  <CardTitle className="text-lg">
+                    {property.title[language]}
+                  </CardTitle>
                   <CardDescription className="flex items-center text-gray-600">
                     <MapPin className="h-4 w-4 mr-1" />
                     {property.location[language]}
@@ -186,7 +258,9 @@ export default function PropertiesPage() {
                 </CardHeader>
 
                 <CardContent>
-                  <p className="text-gray-600 mb-4 text-sm">{property.description?.[language]}</p>
+                  <p className="text-gray-600 mb-4 text-sm">
+                    {property.description?.[language]}
+                  </p>
 
                   <div className="flex items-center space-x-4 mb-4 text-sm text-gray-600">
                     <div className="flex items-center">
@@ -209,7 +283,11 @@ export default function PropertiesPage() {
 
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-2xl font-bold bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-transparent">
-                      {language === "en" ? property.priceUSD : language === "ko" ? property.priceKRW : property.price}
+                      {language === "en"
+                        ? property.priceUSD
+                        : language === "ko"
+                        ? property.priceKRW
+                        : property.price}
                     </span>
                   </div>
 
@@ -217,7 +295,9 @@ export default function PropertiesPage() {
                     asChild
                     className="w-full bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-700 hover:to-accent-700 shadow-lg"
                   >
-                    <Link href={`/bat-dong-san/${property.id}`}>{t("property.viewDetails")}</Link>
+                    <Link href={`/bat-dong-san/${property.id}`}>
+                      {t("property.viewDetails")}
+                    </Link>
                   </Button>
                 </CardContent>
               </div>
@@ -248,5 +328,5 @@ export default function PropertiesPage() {
         </button>
       )}
     </div>
-  )
+  );
 }
