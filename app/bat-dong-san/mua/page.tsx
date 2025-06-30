@@ -31,21 +31,41 @@ import {
   ArrowUp,
 } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
-import propertiesData from "@/data/properties.json";
 
 export default function MuaPage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [showScrollTop, setShowScrollTop] = useState(false);
   const { t, language } = useLanguage();
+  const [properties, setProperties] = useState<any[]>([]);
+  const [propertyType, setPropertyType] = useState("");
+  const [address, setAddress] = useState("");
+  const [priceFrom, setPriceFrom] = useState("");
+  const [priceTo, setPriceTo] = useState("");
+  const [keyword, setKeyword] = useState("");
+  const [areaFrom, setAreaFrom] = useState("");
+  const [areaTo, setAreaTo] = useState("");
+  const [sortBy, setSortBy] = useState("");
 
-  // Lọc bất động sản để mua (không phải Căn hộ hoặc Nhà phố)
-  const allProperties = [
-    ...propertiesData.featuredProperties,
-    ...propertiesData.allProperties,
-  ].filter(
-    (property) =>
-      property.type?.vi !== "Căn hộ" && property.type?.vi !== "Nhà phố"
-  );
+  useEffect(() => {
+    const params = new URLSearchParams({
+      businessType: "buy",
+      status: "active",
+      lang: language,
+    });
+    if (propertyType) params.append("propertyType", propertyType);
+    if (address) params.append("address", address);
+    if (priceFrom) params.append("priceFrom", priceFrom);
+    if (priceTo) params.append("priceTo", priceTo);
+    if (keyword) params.append("keyword", keyword);
+
+    fetch(`/api/property?${params.toString()}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data.properties)) setProperties(data.properties);
+        else setProperties([]);
+      })
+      .catch(() => setProperties([]));
+  }, [language, propertyType, address, priceFrom, priceTo, keyword]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -77,7 +97,10 @@ export default function MuaPage() {
         {/* Filters */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-4">
-            <Select>
+            <Select
+              onValueChange={(value) => setPropertyType(value)}
+              value={propertyType}
+            >
               <SelectTrigger>
                 <SelectValue placeholder={t("search.propertyType")} />
               </SelectTrigger>
@@ -98,7 +121,10 @@ export default function MuaPage() {
               </SelectContent>
             </Select>
 
-            <Select>
+            <Select
+              onValueChange={(value) => setAddress(value)}
+              value={address}
+            >
               <SelectTrigger>
                 <SelectValue placeholder={t("search.location")} />
               </SelectTrigger>
@@ -114,7 +140,14 @@ export default function MuaPage() {
               </SelectContent>
             </Select>
 
-            <Select>
+            <Select
+              onValueChange={(value) => {
+                const [from, to] = value.split("-");
+                setPriceFrom(from);
+                setPriceTo(to);
+              }}
+              value={`${priceFrom}-${priceTo}`}
+            >
               <SelectTrigger>
                 <SelectValue placeholder={t("search.priceRange")} />
               </SelectTrigger>
@@ -135,7 +168,14 @@ export default function MuaPage() {
               </SelectContent>
             </Select>
 
-            <Select>
+            <Select
+              onValueChange={(value) => {
+                const [from, to] = value.split("-");
+                setAreaFrom(from);
+                setAreaTo(to);
+              }}
+              value={`${areaFrom}-${areaTo}`}
+            >
               <SelectTrigger>
                 <SelectValue placeholder={t("search.area")} />
               </SelectTrigger>
@@ -156,7 +196,7 @@ export default function MuaPage() {
               </SelectContent>
             </Select>
 
-            <Select>
+            <Select onValueChange={(value) => setSortBy(value)} value={sortBy}>
               <SelectTrigger>
                 <SelectValue placeholder={t("search.sortBy")} />
               </SelectTrigger>
@@ -178,7 +218,12 @@ export default function MuaPage() {
           </div>
 
           <div className="flex justify-between items-center">
-            <Input placeholder={t("search.keyword")} className="max-w-md" />
+            <Input
+              placeholder={t("search.keyword")}
+              className="max-w-md"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+            />
             <div className="flex items-center space-x-2">
               <span className="text-sm text-gray-600">
                 {t("search.viewMode")}:
@@ -206,7 +251,7 @@ export default function MuaPage() {
           <p className="text-gray-600">
             {t("search.results").replace(
               "{count}",
-              allProperties.length.toString()
+              properties.length.toString()
             )}
           </p>
         </div>
@@ -219,9 +264,9 @@ export default function MuaPage() {
               : "space-y-6"
           }
         >
-          {allProperties.map((property) => (
+          {properties.map((property, idx) => (
             <Card
-              key={property.id}
+              key={property.id || idx}
               className={`overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-0 bg-white/80 backdrop-blur-sm ${
                 viewMode === "list" ? "flex flex-row" : ""
               }`}
@@ -229,8 +274,8 @@ export default function MuaPage() {
               <div className={viewMode === "list" ? "w-1/3" : ""}>
                 <div className="relative">
                   <Image
-                    src={property.image || "/placeholder.svg"}
-                    alt={property.title[language]}
+                    src={property.images?.[0] || "/placeholder.svg"}
+                    alt={property[language]?.name || "Property"}
                     width={300}
                     height={200}
                     className={`object-cover ${
@@ -238,7 +283,7 @@ export default function MuaPage() {
                     }`}
                   />
                   <Badge className="absolute top-2 left-2 bg-gradient-to-r from-primary-600 to-accent-600 text-white border-0">
-                    {property.type[language]}
+                    {property.propertyType}
                   </Badge>
                   <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-full p-2">
                     <Heart className="h-4 w-4 text-gray-600 hover:text-red-500 cursor-pointer transition-colors" />
@@ -249,45 +294,42 @@ export default function MuaPage() {
               <div className={viewMode === "list" ? "w-2/3" : ""}>
                 <CardHeader>
                   <CardTitle className="text-lg">
-                    {property.title[language]}
+                    {property[language]?.name}
                   </CardTitle>
                   <CardDescription className="flex items-center text-gray-600">
                     <MapPin className="h-4 w-4 mr-1" />
-                    {property.location[language]}
+                    {property[language]?.address}
                   </CardDescription>
                 </CardHeader>
 
                 <CardContent>
                   <p className="text-gray-600 mb-4 text-sm">
-                    {property.description?.[language]}
+                    {property[language]?.description}
                   </p>
 
                   <div className="flex items-center space-x-4 mb-4 text-sm text-gray-600">
                     <div className="flex items-center">
                       <Square className="h-4 w-4 mr-1" />
-                      {property.area}
+                      {property[language]?.area}
                     </div>
-                    {property.bedrooms > 0 && (
+                    {property[language]?.bedrooms > 0 && (
                       <div className="flex items-center">
                         <Bed className="h-4 w-4 mr-1" />
-                        {property.bedrooms} {t("property.bedrooms")}
+                        {property[language]?.bedrooms} {t("property.bedrooms")}
                       </div>
                     )}
-                    {property.bathrooms > 0 && (
+                    {property[language]?.bathrooms > 0 && (
                       <div className="flex items-center">
                         <Bath className="h-4 w-4 mr-1" />
-                        {property.bathrooms} {t("property.bathrooms")}
+                        {property[language]?.bathrooms}{" "}
+                        {t("property.bathrooms")}
                       </div>
                     )}
                   </div>
 
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-2xl font-bold bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-transparent">
-                      {language === "en"
-                        ? property.priceUSD
-                        : language === "ko"
-                        ? property.priceKRW
-                        : property.price}
+                      {property[language]?.price}
                     </span>
                   </div>
 
@@ -295,7 +337,7 @@ export default function MuaPage() {
                     asChild
                     className="w-full bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-700 hover:to-accent-700 shadow-lg"
                   >
-                    <Link href={`/bat-dong-san/${property.id}`}>
+                    <Link href={`/bat-dong-san/${property.id || idx}`}>
                       {t("property.viewDetails")}
                     </Link>
                   </Button>

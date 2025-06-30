@@ -76,6 +76,9 @@ export default function AboutPage() {
     title: string;
     content: string;
   } | null>(null);
+  const [historyImage, setHistoryImage] = useState<string>(
+    "/placeholder.svg?height=400&width=600"
+  );
 
   useEffect(() => {
     fetch(`/api/history?lang=${language}`)
@@ -117,6 +120,16 @@ export default function AboutPage() {
       .catch(() => setVision(null));
   }, [language]);
 
+  useEffect(() => {
+    fetch("/api/history/image")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.url) setHistoryImage(data.url);
+        else setHistoryImage("/placeholder.svg?height=400&width=600");
+      })
+      .catch(() => setHistoryImage("/placeholder.svg?height=400&width=600"));
+  }, []);
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -154,7 +167,7 @@ export default function AboutPage() {
             </div>
             <div>
               <Image
-                src="/placeholder.svg?height=400&width=600"
+                src={historyImage}
                 alt="Huỳnh Land Office"
                 width={600}
                 height={400}
