@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -18,13 +18,31 @@ import LanguageSwitcher from "@/components/language-switcher";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t } = useLanguage();
+  const [contactInfo, setContactInfo] = useState<{ hotline: string; email: string }>({
+    hotline: "",
+    email: "",
+  });
+
+  useEffect(() => {
+    fetch("/api/contact")
+      .then((res) => res.json())
+      .then((data) => {
+        setContactInfo({
+          hotline: data.contact?.hotline || "0123 456 789",
+          email: data.contact?.email || "info@thuyanhland.com",
+        });
+      })
+      .catch(() => {
+        setContactInfo({ hotline: "0123 456 789", email: "info@thuyanhland.com" });
+      });
+  }, []);
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       {/* Top bar */}
       <div className="bg-gradient-to-r from-primary-600 to-accent-600 text-white py-2">
         <div className="container mx-auto px-4 flex justify-between items-center text-sm">
-          <div>Hotline: 0123 456 789 | Email: info@thuyanhland.com</div>
+          <div>Hotline: {contactInfo.hotline} | Email: {contactInfo.email}</div>
           <div className="hidden md:flex items-center space-x-4">
             <LanguageSwitcher />
             <Link href="/dang-ky" className="hover:underline">

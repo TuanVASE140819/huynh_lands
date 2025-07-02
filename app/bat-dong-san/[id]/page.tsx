@@ -112,7 +112,9 @@ export default function PropertyDetailPage({
     return <div className="p-8">{t("loading") || "Đang tải..."}</div>;
   if (!property)
     return (
-      <div className="p-8 text-red-500">{t("notFound") || "Không tìm thấy bất động sản"}</div>
+      <div className="p-8 text-red-500">
+        {t("notFound") || "Không tìm thấy bất động sản"}
+      </div>
     );
   if (!property[language]) return null;
 
