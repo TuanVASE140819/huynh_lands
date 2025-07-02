@@ -13,6 +13,47 @@ export const metadata: Metadata = {
   title: "Huỳnh Land - Bất động sản uy tín",
   description: "Đối tác tin cậy trong mọi giao dịch bất động sản",
   generator: "v0.dev",
+  keywords: [
+    "bất động sản",
+    "huỳnh land",
+    "mua nhà",
+    "bán nhà",
+    "thuê nhà",
+    "real estate",
+    "property",
+    "apartment",
+    "villa",
+    "land",
+    "nhà phố",
+    "căn hộ",
+    "biệt thự",
+    "đất nền",
+  ],
+  authors: [{ name: "Huỳnh Land", url: "https://huynhland.vn" }],
+  openGraph: {
+    title: "Huỳnh Land - Bất động sản uy tín",
+    description: "Đối tác tin cậy trong mọi giao dịch bất động sản",
+    url: "https://huynhland.vn",
+    siteName: "Huỳnh Land",
+    images: [
+      {
+        url: "/placeholder-logo.png",
+        width: 600,
+        height: 315,
+        alt: "Huỳnh Land Logo",
+      },
+    ],
+    locale: "vi_VN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Huỳnh Land - Bất động sản uy tín",
+    description: "Đối tác tin cậy trong mọi giao dịch bất động sản",
+    site: "@huynhland",
+    creator: "@huynhland",
+    images: ["/placeholder-logo.png"],
+  },
 };
 
 export default function RootLayout({

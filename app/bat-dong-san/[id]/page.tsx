@@ -54,12 +54,106 @@ function formatPrice(price: number, lang: string) {
   return price.toLocaleString();
 }
 
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  // Fetch property data for SEO
+  const lang = "vi"; // Default, can be improved to detect from context or params
+  const API_BASE_URL =
+    process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8011/api";
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/property/${params.id}?lang=${lang}`
+    );
+    const data = await res.json();
+    const property = data.property?.[lang] || {};
+    return {
+      title: property.name
+        ? `${property.name} - Huỳnh Land`
+        : "Chi tiết bất động sản - Huỳnh Land",
+      description:
+        property.description || "Chi tiết bất động sản tại Huỳnh Land.",
+      keywords: [
+        ...(property.name ? property.name.split(" ") : []),
+        property.location || "",
+        property.type || "",
+        "bất động sản",
+        "huỳnh land",
+        "mua nhà",
+        "bán nhà",
+        "thuê nhà",
+        "real estate",
+        "property",
+      ],
+      alternates: {
+        canonical: `https://huynhland.vn/bat-dong-san/${params.id}`,
+      },
+      openGraph: {
+        title: property.name
+          ? `${property.name} - Huỳnh Land`
+          : "Chi tiết bất động sản - Huỳnh Land",
+        description:
+          property.description || "Chi tiết bất động sản tại Huỳnh Land.",
+        url: `https://huynhland.vn/bat-dong-san/${params.id}`,
+        siteName: "Huỳnh Land",
+        images: data.property?.images?.length
+          ? [
+              {
+                url: data.property.images[0],
+                width: 800,
+                height: 600,
+                alt: property.name || "Property image",
+              },
+            ]
+          : [
+              {
+                url: "/placeholder-logo.png",
+                width: 600,
+                height: 315,
+                alt: "Huỳnh Land Logo",
+              },
+            ],
+        locale: "vi_VN",
+        type: "article",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: property.name
+          ? `${property.name} - Huỳnh Land`
+          : "Chi tiết bất động sản - Huỳnh Land",
+        description:
+          property.description || "Chi tiết bất động sản tại Huỳnh Land.",
+        images: data.property?.images?.length
+          ? [data.property.images[0]]
+          : ["/placeholder-logo.png"],
+      },
+      robots: {
+        index: true,
+        follow: true,
+        nocache: false,
+      },
+      other: {
+        "theme-color": "#f97316",
+      },
+    };
+  } catch {
+    return {
+      title: "Chi tiết bất động sản - Huỳnh Land",
+      description: "Chi tiết bất động sản tại Huỳnh Land.",
+    };
+  }
+}
+
 export default function PropertyDetailPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const { id } = React.use(params);
+  const { id } = params;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const { t, language } = useLanguage();
