@@ -47,15 +47,16 @@ export default function ContactPage() {
     googleMapLink: string;
   } | null>(null);
 
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8011/api";
   useEffect(() => {
-    fetch("/api/contact")
+    fetch(`${API_BASE_URL}/contact`)
       .then((res) => res.json())
       .then((data) => setContact(data.contact))
       .catch(() => setContact(null));
-  }, []);
+  }, [API_BASE_URL]);
 
   useEffect(() => {
-    fetch(`/api/office?lang=${language}`)
+    fetch(`${API_BASE_URL}/office?lang=${language}`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data.office)) setOffices(data.office);
@@ -63,21 +64,21 @@ export default function ContactPage() {
         else setOffices([]);
       })
       .catch(() => setOffices([]));
-  }, [language]);
+  }, [language, API_BASE_URL]);
 
   useEffect(() => {
-    fetch("/api/social")
+    fetch(`${API_BASE_URL}/social`)
       .then((res) => res.json())
       .then((data) => setSocial(data.social))
       .catch(() => setSocial(null));
-  }, []);
+  }, [API_BASE_URL]);
 
   useEffect(() => {
-    fetch("/api/mainoffice-map")
+    fetch(`${API_BASE_URL}/mainoffice-map`)
       .then((res) => res.json())
       .then((data) => setMainOfficeMap(data.mainOfficeMap))
       .catch(() => setMainOfficeMap(null));
-  }, []);
+  }, [API_BASE_URL]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

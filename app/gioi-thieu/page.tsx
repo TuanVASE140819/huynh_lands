@@ -80,22 +80,30 @@ export default function AboutPage() {
     "/placeholder.svg?height=400&width=600"
   );
 
+  const API_BASE_URL =
+    process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8011/api";
+
   useEffect(() => {
-    fetch(`/api/history?lang=${language}`)
+    fetch(`${API_BASE_URL}/history?lang=${language}`)
       .then((res) => res.json())
       .then((data) => {
-        // Đảm bảo data.history là object, nếu không thì set null
-        if (data && typeof data.history === "object" && data.history !== null) {
+        if (
+          data &&
+          typeof data.history === "object" &&
+          data.history !== null &&
+          typeof data.history.title === "string" &&
+          typeof data.history.content === "string"
+        ) {
           setHistory(data.history);
         } else {
           setHistory(null);
         }
       })
       .catch(() => setHistory(null));
-  }, [language]);
+  }, [language, API_BASE_URL]);
 
   useEffect(() => {
-    fetch(`/api/mission?lang=${language}`)
+    fetch(`${API_BASE_URL}/mission?lang=${language}`)
       .then((res) => res.json())
       .then((data) => {
         if (data && typeof data.mission === "object" && data.mission !== null) {
@@ -105,10 +113,10 @@ export default function AboutPage() {
         }
       })
       .catch(() => setMission(null));
-  }, [language]);
+  }, [language, API_BASE_URL]);
 
   useEffect(() => {
-    fetch(`/api/vision?lang=${language}`)
+    fetch(`${API_BASE_URL}/vision?lang=${language}`)
       .then((res) => res.json())
       .then((data) => {
         if (data && typeof data.vision === "object" && data.vision !== null) {
@@ -118,17 +126,17 @@ export default function AboutPage() {
         }
       })
       .catch(() => setVision(null));
-  }, [language]);
+  }, [language, API_BASE_URL]);
 
   useEffect(() => {
-    fetch("/api/history/image")
+    fetch(`${API_BASE_URL}/history/image`)
       .then((res) => res.json())
       .then((data) => {
         if (data && data.url) setHistoryImage(data.url);
         else setHistoryImage("/placeholder.svg?height=400&width=600");
       })
       .catch(() => setHistoryImage("/placeholder.svg?height=400&width=600"));
-  }, []);
+  }, [API_BASE_URL]);
 
   return (
     <div className="min-h-screen">

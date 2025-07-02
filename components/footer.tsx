@@ -18,12 +18,13 @@ export default function Footer() {
     null
   );
 
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8011/api";
   useEffect(() => {
-    fetch("/api/contact")
+    fetch(`${API_BASE_URL}/contact`)
       .then((res) => res.json())
       .then((data) => setContact(data.contact || null))
       .catch(() => setContact(null));
-    fetch("/api/office?lang=vi")
+    fetch(`${API_BASE_URL}/office?lang=vi`)
       .then((res) => res.json())
       .then((data) => {
         // Ưu tiên lấy văn phòng đầu tiên làm văn phòng chính
@@ -36,7 +37,7 @@ export default function Footer() {
         }
       })
       .catch(() => setMainOffice(null));
-  }, []);
+  }, [API_BASE_URL]);
 
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">

@@ -26,8 +26,10 @@ export default function Header() {
     email: "",
   });
 
+  const API_BASE_URL =
+    process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8011/api";
   useEffect(() => {
-    fetch("/api/contact")
+    fetch(`${API_BASE_URL}/contact`)
       .then((res) => res.json())
       .then((data) => {
         setContactInfo({
@@ -41,7 +43,7 @@ export default function Header() {
           email: "info@thuyanhland.com",
         });
       });
-  }, []);
+  }, [API_BASE_URL]);
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">

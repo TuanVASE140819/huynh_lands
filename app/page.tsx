@@ -27,18 +27,19 @@ export default function HomePage() {
   const { t, language } = useLanguage();
 
   const [hotline, setHotline] = useState("0123 456 789");
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8011/api";
   useEffect(() => {
-    fetch("/api/contact")
+    fetch(`${API_BASE_URL}/contact`)
       .then((res) => res.json())
       .then((data) => {
         if (data.contact?.hotline) setHotline(data.contact.hotline);
       })
       .catch(() => setHotline("0123 456 789"));
-  }, []);
+  }, [API_BASE_URL]);
 
   const [featuredProperties, setFeaturedProperties] = useState<any[]>([]);
   useEffect(() => {
-    fetch(`/api/property?businessType=buy&status=active&lang=${language}`)
+    fetch(`${API_BASE_URL}/property?businessType=buy&status=active&lang=${language}`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data.properties)) {
@@ -48,7 +49,7 @@ export default function HomePage() {
         }
       })
       .catch(() => setFeaturedProperties([]));
-  }, [language]);
+  }, [language, API_BASE_URL]);
 
   const whyChooseUs = [
     {
