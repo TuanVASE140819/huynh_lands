@@ -294,7 +294,7 @@ export default function AboutPage() {
         </section>
 
         {/* Team */}
-        <section className="mb-16">
+        {/* <section className="mb-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Đội ngũ lãnh đạo</h2>
             <p className="text-lg text-gray-600">
@@ -324,7 +324,7 @@ export default function AboutPage() {
               </Card>
             ))}
           </div>
-        </section>
+        </section> */}
 
         {/* Why Choose Us */}
         <section className="mb-16">

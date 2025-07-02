@@ -89,7 +89,7 @@
       "newsletter": "Đăng ký nhận tin",
       "newsletterDesc": "Nhận thông tin mới nhất về thị trường BĐS",
       "subscribe": "Đăng ký",
-      "copyright": "© 2024 Huỳnh Land. Tất cả quyền được bảo lưu."
+      "copyright": "© 2025 Huỳnh Land. Tất cả quyền được bảo lưu."
     },
     "property": {
       "viewDetails": "Xem chi tiết",
@@ -116,6 +116,7 @@
       "phone": "Số điện thoại",
       "email": "Email",
       "consultationContent": "Nội dung tư vấn...",
+      "consultationDescription": "Để lại thông tin để được tư vấn miễn phí",
       "specialist": "Chuyên viên tư vấn",
       "sendEmail": "Gửi email",
       "extras": "Tiện ích"
@@ -294,6 +295,7 @@
       "phone": "Phone Number",
       "email": "Email",
       "consultationContent": "Consultation content...",
+      "consultationDescription": "Leave your information for a free consultation",
       "specialist": "Consultation Specialist",
       "sendEmail": "Send Email",
       "extras": "Extras"
@@ -472,6 +474,7 @@
       "phone": "전화번호",
       "email": "이메일",
       "consultationContent": "상담 내용...",
+      "consultationDescription": "무료 상담을 위해 정보를 남겨주세요",
       "specialist": "상담 전문가",
       "sendEmail": "이메일 보내기",
       "extras": "편의시설"

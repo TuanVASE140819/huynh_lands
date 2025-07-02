@@ -441,32 +441,37 @@ export default function PropertyDetailPage({
             )}
 
             {/* Contact Form */}
-            <Card>
-              <CardHeader>
-                <CardTitle>{t("property.requestConsultation")}</CardTitle>
-                <CardDescription>
-                  Để lại thông tin để được tư vấn miễn phí
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form className="space-y-4">
-                  <Input placeholder={`${t("property.fullName")} *`} required />
-                  <Input
-                    placeholder={`${t("property.phone")} *`}
-                    type="tel"
-                    required
-                  />
-                  <Input placeholder={t("property.email")} type="email" />
-                  <Textarea
-                    placeholder={t("property.consultationContent")}
-                    rows={4}
-                  />
-                  <Button className="w-full bg-orange-500 hover:bg-orange-600">
-                    {t("property.sendRequest")}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+            <div className="sticky top-36">
+              <Card>
+                <CardHeader>
+                  <CardTitle>{t("property.requestConsultation")}</CardTitle>
+                  <CardDescription>
+                    {t("property.consultationDescription")}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <form className="space-y-4">
+                    <Input
+                      placeholder={`${t("property.fullName")} *`}
+                      required
+                    />
+                    <Input
+                      placeholder={`${t("property.phone")} *`}
+                      type="tel"
+                      required
+                    />
+                    <Input placeholder={t("property.email")} type="email" />
+                    <Textarea
+                      placeholder={t("property.consultationContent")}
+                      rows={4}
+                    />
+                    <Button className="w-full bg-orange-500 hover:bg-orange-600">
+                      {t("property.sendRequest")}
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </div>

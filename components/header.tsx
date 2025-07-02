@@ -53,15 +53,15 @@ export default function Header() {
           <div>
             Hotline: {contactInfo.hotline} | Email: {contactInfo.email}
           </div>
-          {/* <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-4">
             <LanguageSwitcher />
-            <Link href="/dang-ky" className="hover:underline">
+            {/* <Link href="/dang-ky" className="hover:underline">
               {t("nav.register")}
             </Link>
             <Link href="/dang-nhap" className="hover:underline">
               {t("nav.login")}
-            </Link>
-          </div> */}
+            </Link> */}
+          </div>
         </div>
       </div>
 

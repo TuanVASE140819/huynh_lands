@@ -27,7 +27,8 @@ export default function HomePage() {
   const { t, language } = useLanguage();
 
   const [hotline, setHotline] = useState("0123 456 789");
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8011/api";
+  const API_BASE_URL =
+    process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8011/api";
   useEffect(() => {
     fetch(`${API_BASE_URL}/contact`)
       .then((res) => res.json())
@@ -39,7 +40,9 @@ export default function HomePage() {
 
   const [featuredProperties, setFeaturedProperties] = useState<any[]>([]);
   useEffect(() => {
-    fetch(`${API_BASE_URL}/property?businessType=buy&status=active&lang=${language}`)
+    fetch(
+      `${API_BASE_URL}/property?businessType=buy&status=active&lang=${language}`
+    )
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data.properties)) {
@@ -193,9 +196,14 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredProperties.map((property) => {
               // Lấy thông tin động cho cả dạng property.title[language] hoặc property[language]?.name
-              const title = property.title?.[language] || property[language]?.name || "";
-              const type = property.type?.[language] || property[language]?.type || "";
-              const location = property.location?.[language] || property[language]?.address || "";
+              const title =
+                property.title?.[language] || property[language]?.name || "";
+              const type =
+                property.type?.[language] || property[language]?.type || "";
+              const location =
+                property.location?.[language] ||
+                property[language]?.address ||
+                "";
               return (
                 <Card
                   key={property.id}
@@ -203,7 +211,11 @@ export default function HomePage() {
                 >
                   <div className="relative">
                     <Image
-                      src={property.image || property.images?.[0] || "/placeholder.svg"}
+                      src={
+                        property.image ||
+                        property.images?.[0] ||
+                        "/placeholder.svg"
+                      }
                       alt={title}
                       width={300}
                       height={200}
@@ -229,7 +241,8 @@ export default function HomePage() {
                         {property.price || property[language]?.price || ""}
                       </span>
                       <span className="text-gray-600">
-                        {(property.area || property[language]?.area || "") + " m²"}
+                        {(property.area || property[language]?.area || "") +
+                          " m²"}
                       </span>
                     </div>
                     <Button
@@ -252,7 +265,7 @@ export default function HomePage() {
               size="lg"
               className="border-2 border-primary-200 hover:bg-primary-50 hover:border-primary-300"
             >
-              <Link href="/bat-dong-san">{t("property.viewAll")}</Link>
+              <Link href="/bat-dong-san/mua">{t("property.viewAll")}</Link>
             </Button>
           </div>
         </div>

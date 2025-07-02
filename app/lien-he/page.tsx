@@ -47,7 +47,8 @@ export default function ContactPage() {
     googleMapLink: string;
   } | null>(null);
 
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8011/api";
+  const API_BASE_URL =
+    process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8011/api";
   useEffect(() => {
     fetch(`${API_BASE_URL}/contact`)
       .then((res) => res.json())
