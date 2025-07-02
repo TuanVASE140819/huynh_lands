@@ -117,7 +117,8 @@
       "email": "Email",
       "consultationContent": "Nội dung tư vấn...",
       "specialist": "Chuyên viên tư vấn",
-      "sendEmail": "Gửi email"
+      "sendEmail": "Gửi email",
+      "extras": "Tiện ích"
     },
     "news": {
       "title": "Tin tức bất động sản",
@@ -292,7 +293,8 @@
       "email": "Email",
       "consultationContent": "Consultation content...",
       "specialist": "Consultation Specialist",
-      "sendEmail": "Send Email"
+      "sendEmail": "Send Email",
+      "extras": "Extras"
     },
     "news": {
       "title": "Real Estate News",
@@ -467,7 +469,8 @@
       "email": "이메일",
       "consultationContent": "상담 내용...",
       "specialist": "상담 전문가",
-      "sendEmail": "이메일 보내기"
+      "sendEmail": "이메일 보내기",
+      "extras": "편의시설"
     },
     "news": {
       "title": "부동산 뉴스",

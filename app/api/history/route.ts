@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   const lang = req.nextUrl.searchParams.get("lang") || "vi";
-  const apiBaseUrl =
-    process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8011/api";
+  const apiBaseUrl = process.env.API_BASE_URL || "http://localhost:8011/api";
   try {
     const res = await fetch(`${apiBaseUrl}/history?lang=${lang}`);
     if (!res.ok) throw new Error("Failed to fetch history data");

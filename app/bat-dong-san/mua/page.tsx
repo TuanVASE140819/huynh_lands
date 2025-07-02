@@ -37,6 +37,7 @@ export default function MuaPage() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const { t, language } = useLanguage();
   const [properties, setProperties] = useState<any[]>([]);
+  // filter state for actual search
   const [propertyType, setPropertyType] = useState("");
   const [address, setAddress] = useState("");
   const [priceFrom, setPriceFrom] = useState("");
@@ -45,6 +46,53 @@ export default function MuaPage() {
   const [areaFrom, setAreaFrom] = useState("");
   const [areaTo, setAreaTo] = useState("");
   const [sortBy, setSortBy] = useState("");
+  // temp filter state for UI
+  const [propertyTypes, setPropertyTypes] = useState<any[]>([]);
+  const [filterPropertyType, setFilterPropertyType] = useState("all");
+  const [filterAddress, setFilterAddress] = useState("");
+  const [filterPriceFrom, setFilterPriceFrom] = useState("");
+  const [filterPriceTo, setFilterPriceTo] = useState("");
+  const [filterKeyword, setFilterKeyword] = useState("");
+  const [filterAreaFrom, setFilterAreaFrom] = useState("");
+  const [filterAreaTo, setFilterAreaTo] = useState("");
+  const [filterSortBy, setFilterSortBy] = useState("");
+
+  function formatPrice(price: number, lang: string) {
+    if (!price) return "";
+    if (lang === "vi") {
+      return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      }).format(price);
+    }
+    if (lang === "en") {
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(price);
+    }
+    if (lang === "ko") {
+      return new Intl.NumberFormat("ko-KR", {
+        style: "currency",
+        currency: "KRW",
+      }).format(price);
+    }
+    return price.toLocaleString();
+  }
+
+  const API_BASE_URL =
+    process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8011/api";
+  // Lấy propertyTypes từ API
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/property-type?lang=${language}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data.propertyTypes))
+          setPropertyTypes(data.propertyTypes);
+        else setPropertyTypes([]);
+      })
+      .catch(() => setPropertyTypes([]));
+  }, [language, API_BASE_URL]);
 
   useEffect(() => {
     const params = new URLSearchParams({
@@ -52,20 +100,48 @@ export default function MuaPage() {
       status: "active",
       lang: language,
     });
-    if (propertyType) params.append("propertyType", propertyType);
+    if (propertyType && propertyType !== "all")
+      params.append("propertyType", propertyType);
     if (address) params.append("address", address);
-    if (priceFrom) params.append("priceFrom", priceFrom);
-    if (priceTo) params.append("priceTo", priceTo);
+    if (priceFrom && !isNaN(Number(priceFrom)))
+      params.append("priceFrom", Number(priceFrom).toString());
+    if (priceTo && !isNaN(Number(priceTo)))
+      params.append("priceTo", Number(priceTo).toString());
     if (keyword) params.append("keyword", keyword);
+    if (areaFrom) params.append("areaFrom", areaFrom);
+    if (areaTo) params.append("areaTo", areaTo);
+    if (sortBy) params.append("sortBy", sortBy);
 
-    fetch(`/api/property?${params.toString()}`)
+    fetch(`${API_BASE_URL}/property?${params.toString()}`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data.properties)) setProperties(data.properties);
         else setProperties([]);
       })
       .catch(() => setProperties([]));
-  }, [language, propertyType, address, priceFrom, priceTo, keyword]);
+  }, [
+    language,
+    propertyType,
+    address,
+    priceFrom,
+    priceTo,
+    keyword,
+    areaFrom,
+    areaTo,
+    sortBy,
+  ]);
+
+  // Handler for search button
+  const handleSearch = () => {
+    setPropertyType(filterPropertyType);
+    setAddress(filterAddress);
+    setPriceFrom(filterPriceFrom);
+    setPriceTo(filterPriceTo);
+    setKeyword(filterKeyword);
+    setAreaFrom(filterAreaFrom);
+    setAreaTo(filterAreaTo);
+    setSortBy(filterSortBy);
+  };
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -96,135 +172,99 @@ export default function MuaPage() {
 
         {/* Filters */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-4">
-            <Select
-              onValueChange={(value) => setPropertyType(value)}
-              value={propertyType}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder={t("search.propertyType")} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">{t("propertyTypes.all")}</SelectItem>
-                <SelectItem value="nha-pho">
-                  {t("propertyTypes.nha-pho")}
-                </SelectItem>
-                <SelectItem value="can-ho">
-                  {t("propertyTypes.can-ho")}
-                </SelectItem>
-                <SelectItem value="biet-thu">
-                  {t("propertyTypes.biet-thu")}
-                </SelectItem>
-                <SelectItem value="dat-nen">
-                  {t("propertyTypes.dat-nen")}
-                </SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select
-              onValueChange={(value) => setAddress(value)}
-              value={address}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder={t("search.location")} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">{t("locations.all")}</SelectItem>
-                <SelectItem value="quan-1">{t("locations.quan-1")}</SelectItem>
-                <SelectItem value="quan-2">{t("locations.quan-2")}</SelectItem>
-                <SelectItem value="quan-7">{t("locations.quan-7")}</SelectItem>
-                <SelectItem value="quan-9">{t("locations.quan-9")}</SelectItem>
-                <SelectItem value="thu-duc">
-                  {t("locations.thu-duc")}
-                </SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select
-              onValueChange={(value) => {
-                const [from, to] = value.split("-");
-                setPriceFrom(from);
-                setPriceTo(to);
-              }}
-              value={`${priceFrom}-${priceTo}`}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder={t("search.priceRange")} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">{t("priceRanges.all")}</SelectItem>
-                <SelectItem value="duoi-5ty">
-                  {t("priceRanges.duoi-5ty")}
-                </SelectItem>
-                <SelectItem value="5-10ty">
-                  {t("priceRanges.5-10ty")}
-                </SelectItem>
-                <SelectItem value="10-20ty">
-                  {t("priceRanges.10-20ty")}
-                </SelectItem>
-                <SelectItem value="tren-20ty">
-                  {t("priceRanges.tren-20ty")}
-                </SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select
-              onValueChange={(value) => {
-                const [from, to] = value.split("-");
-                setAreaFrom(from);
-                setAreaTo(to);
-              }}
-              value={`${areaFrom}-${areaTo}`}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder={t("search.area")} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">{t("areaRanges.all")}</SelectItem>
-                <SelectItem value="duoi-100">
-                  {t("areaRanges.duoi-100")}
-                </SelectItem>
-                <SelectItem value="100-200">
-                  {t("areaRanges.100-200")}
-                </SelectItem>
-                <SelectItem value="200-300">
-                  {t("areaRanges.200-300")}
-                </SelectItem>
-                <SelectItem value="tren-300">
-                  {t("areaRanges.tren-300")}
-                </SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select onValueChange={(value) => setSortBy(value)} value={sortBy}>
-              <SelectTrigger>
-                <SelectValue placeholder={t("search.sortBy")} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="newest">
-                  {t("sortOptions.newest")}
-                </SelectItem>
-                <SelectItem value="price-low">
-                  {t("sortOptions.price-low")}
-                </SelectItem>
-                <SelectItem value="price-high">
-                  {t("sortOptions.price-high")}
-                </SelectItem>
-                <SelectItem value="area-large">
-                  {t("sortOptions.area-large")}
-                </SelectItem>
-              </SelectContent>
-            </Select>
+          {/* Hàng 1: Các filter chính */}
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 mb-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                {t("search.propertyType")}
+              </label>
+              <Select
+                onValueChange={(value) => setFilterPropertyType(value)}
+                value={filterPropertyType}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder={t("search.propertyType")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{t("propertyTypes.all")}</SelectItem>
+                  {propertyTypes.map((type) => (
+                    <SelectItem key={type.id} value={type.id}>
+                      {type[language]?.name || type.vi?.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                {t("search.location")}
+              </label>
+              <Input
+                placeholder={t("search.location")}
+                value={filterAddress}
+                onChange={(e) => setFilterAddress(e.target.value)}
+                className="w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                {t("search.priceRange")}
+              </label>
+              <Select
+                onValueChange={(value) => {
+                  if (value === "all") {
+                    setFilterPriceFrom("");
+                    setFilterPriceTo("");
+                  } else {
+                    const [from, to] = value.split("-");
+                    setFilterPriceFrom(from);
+                    setFilterPriceTo(to);
+                  }
+                }}
+                value={
+                  filterPriceFrom && filterPriceTo
+                    ? `${filterPriceFrom}-${filterPriceTo}`
+                    : "all"
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder={t("search.priceRange")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{t("priceRanges.all")}</SelectItem>
+                  <SelectItem value="0-5000000000">
+                    {t("priceRanges.duoi-5ty")}
+                  </SelectItem>
+                  <SelectItem value="5000000000-10000000000">
+                    {t("priceRanges.5-10ty")}
+                  </SelectItem>
+                  <SelectItem value="10000000000-20000000000">
+                    {t("priceRanges.10-20ty")}
+                  </SelectItem>
+                  <SelectItem value="20000000000-999999999999">
+                    {t("priceRanges.tren-20ty")}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            {/* Có thể thêm filter diện tích, phòng ngủ... ở đây nếu muốn */}
           </div>
 
-          <div className="flex justify-between items-center">
+          {/* Hàng 2: Từ khóa, nút tìm kiếm, chuyển chế độ xem */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <Input
               placeholder={t("search.keyword")}
               className="max-w-md"
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
+              value={filterKeyword}
+              onChange={(e) => setFilterKeyword(e.target.value)}
             />
             <div className="flex items-center space-x-2">
+              <Button
+                onClick={handleSearch}
+                className="bg-primary-600 text-white"
+              >
+                {t("search.search")}
+              </Button>
               <span className="text-sm text-gray-600">
                 {t("search.viewMode")}:
               </span>
@@ -245,7 +285,6 @@ export default function MuaPage() {
             </div>
           </div>
         </div>
-
         {/* Results */}
         <div className="mb-4">
           <p className="text-gray-600">
@@ -329,7 +368,7 @@ export default function MuaPage() {
 
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-2xl font-bold bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-transparent">
-                      {property[language]?.price}
+                      {formatPrice(Number(property[language]?.price), language)}
                     </span>
                   </div>
 
@@ -347,8 +386,8 @@ export default function MuaPage() {
           ))}
         </div>
 
-        {/* Pagination */}
-        <div className="flex justify-center mt-8">
+        {/* Pagination (hidden for now) */}
+        {/* <div className="flex justify-center mt-8">
           <div className="flex space-x-2">
             <Button variant="outline">{t("pagination.previous")}</Button>
             <Button>1</Button>
@@ -356,7 +395,7 @@ export default function MuaPage() {
             <Button variant="outline">3</Button>
             <Button variant="outline">{t("pagination.next")}</Button>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Scroll to Top Button */}
