@@ -18,7 +18,10 @@ import LanguageSwitcher from "@/components/language-switcher";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t } = useLanguage();
-  const [contactInfo, setContactInfo] = useState<{ hotline: string; email: string }>({
+  const [contactInfo, setContactInfo] = useState<{
+    hotline: string;
+    email: string;
+  }>({
     hotline: "",
     email: "",
   });
@@ -33,7 +36,10 @@ export default function Header() {
         });
       })
       .catch(() => {
-        setContactInfo({ hotline: "0123 456 789", email: "info@thuyanhland.com" });
+        setContactInfo({
+          hotline: "0123 456 789",
+          email: "info@thuyanhland.com",
+        });
       });
   }, []);
 
@@ -42,8 +48,10 @@ export default function Header() {
       {/* Top bar */}
       <div className="bg-gradient-to-r from-primary-600 to-accent-600 text-white py-2">
         <div className="container mx-auto px-4 flex justify-between items-center text-sm">
-          <div>Hotline: {contactInfo.hotline} | Email: {contactInfo.email}</div>
-          <div className="hidden md:flex items-center space-x-4">
+          <div>
+            Hotline: {contactInfo.hotline} | Email: {contactInfo.email}
+          </div>
+          {/* <div className="hidden md:flex items-center space-x-4">
             <LanguageSwitcher />
             <Link href="/dang-ky" className="hover:underline">
               {t("nav.register")}
@@ -51,7 +59,7 @@ export default function Header() {
             <Link href="/dang-nhap" className="hover:underline">
               {t("nav.login")}
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -138,7 +146,7 @@ export default function Header() {
         </div>
 
         {/* Search bar */}
-        <div className="hidden md:block pb-4">
+        {/* <div className="hidden md:block pb-4">
           <div className="flex items-center space-x-2 max-w-4xl mx-auto">
             <Select>
               <SelectTrigger className="w-40">
@@ -200,7 +208,7 @@ export default function Header() {
               <Search className="h-4 w-4" />
             </Button>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Mobile Navigation */}

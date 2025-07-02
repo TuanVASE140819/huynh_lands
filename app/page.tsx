@@ -1,18 +1,54 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { MapPin, Phone, Users, Award, TrendingUp, Heart } from "lucide-react"
-import { useLanguage } from "@/contexts/language-context"
-import propertiesData from "@/data/properties.json"
+import Link from "next/link";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { MapPin, Phone, Users, Award, TrendingUp, Heart } from "lucide-react";
+import { useLanguage } from "@/contexts/language-context";
+import propertiesData from "@/data/properties.json";
+import { useEffect, useState } from "react";
 
 export default function HomePage() {
-  const { t, language } = useLanguage()
-  const { featuredProperties } = propertiesData
+  const { t, language } = useLanguage();
+
+  const [hotline, setHotline] = useState("0123 456 789");
+  useEffect(() => {
+    fetch("/api/contact")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.contact?.hotline) setHotline(data.contact.hotline);
+      })
+      .catch(() => setHotline("0123 456 789"));
+  }, []);
+
+  const [featuredProperties, setFeaturedProperties] = useState<any[]>([]);
+  useEffect(() => {
+    fetch(`/api/property?businessType=buy&status=active&lang=${language}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data.properties)) {
+          setFeaturedProperties(data.properties.slice(0, 3));
+        } else {
+          setFeaturedProperties([]);
+        }
+      })
+      .catch(() => setFeaturedProperties([]));
+  }, [language]);
 
   const whyChooseUs = [
     {
@@ -54,7 +90,7 @@ export default function HomePage() {
         ko: "수천 개의 양질의 부동산 프로젝트와 연결",
       },
     },
-  ]
+  ];
 
   return (
     <div className="min-h-screen">
@@ -72,7 +108,7 @@ export default function HomePage() {
             size="lg"
             className="bg-gradient-to-r from-secondary-500 to-secondary-600 hover:from-secondary-600 hover:to-secondary-700 shadow-xl transform hover:scale-105 transition-all duration-300"
           >
-            <Link href="/bat-dong-san">{t("hero.cta")}</Link>
+            <Link href="/bat-dong-san/mua">{t("hero.cta")}</Link>
           </Button>
         </div>
 
@@ -82,7 +118,7 @@ export default function HomePage() {
       </section>
 
       {/* Quick Search */}
-      <section className="py-8 bg-gradient-to-r from-gray-50 to-gray-100">
+      {/* <section className="py-8 bg-gradient-to-r from-gray-50 to-gray-100">
         <div className="container mx-auto px-4">
           <div className="bg-white p-6 rounded-2xl shadow-xl border border-gray-100">
             <h2 className="text-2xl font-semibold mb-4 text-center bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
@@ -128,7 +164,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* About Section */}
       <section className="py-16 bg-white">
@@ -137,7 +173,9 @@ export default function HomePage() {
             <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
               {t("about.title")}
             </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t("about.description")}</p>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              {t("about.description")}
+            </p>
           </div>
         </div>
       </section>
@@ -152,49 +190,59 @@ export default function HomePage() {
             <p className="text-lg text-gray-600">{t("featured.subtitle")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredProperties.map((property) => (
-              <Card
-                key={property.id}
-                className="overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-0 bg-white/80 backdrop-blur-sm"
-              >
-                <div className="relative">
-                  <Image
-                    src={property.image || "/placeholder.svg"}
-                    alt={property.title[language]}
-                    width={300}
-                    height={200}
-                    className="w-full h-48 object-cover"
-                  />
-                  <Badge className="absolute top-2 left-2 bg-gradient-to-r from-primary-600 to-accent-600 text-white border-0">
-                    {property.type[language]}
-                  </Badge>
-                  <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-full p-2">
-                    <Heart className="h-4 w-4 text-gray-600 hover:text-red-500 cursor-pointer transition-colors" />
+            {featuredProperties.map((property) => {
+              // Lấy thông tin động cho cả dạng property.title[language] hoặc property[language]?.name
+              const title = property.title?.[language] || property[language]?.name || "";
+              const type = property.type?.[language] || property[language]?.type || "";
+              const location = property.location?.[language] || property[language]?.address || "";
+              return (
+                <Card
+                  key={property.id}
+                  className="overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-0 bg-white/80 backdrop-blur-sm"
+                >
+                  <div className="relative">
+                    <Image
+                      src={property.image || property.images?.[0] || "/placeholder.svg"}
+                      alt={title}
+                      width={300}
+                      height={200}
+                      className="w-full h-48 object-cover"
+                    />
+                    <Badge className="absolute top-2 left-2 bg-gradient-to-r from-primary-600 to-accent-600 text-white border-0">
+                      {type}
+                    </Badge>
+                    <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-full p-2">
+                      <Heart className="h-4 w-4 text-gray-600 hover:text-red-500 cursor-pointer transition-colors" />
+                    </div>
                   </div>
-                </div>
-                <CardHeader>
-                  <CardTitle className="text-lg">{property.title[language]}</CardTitle>
-                  <CardDescription className="flex items-center text-gray-600">
-                    <MapPin className="h-4 w-4 mr-1" />
-                    {property.location[language]}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="text-2xl font-bold bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-transparent">
-                      {language === "en" ? property.priceUSD : language === "ko" ? property.priceKRW : property.price}
-                    </span>
-                    <span className="text-gray-600">{property.area}</span>
-                  </div>
-                  <Button
-                    asChild
-                    className="w-full bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-700 hover:to-accent-700 shadow-lg"
-                  >
-                    <Link href={`/bat-dong-san/${property.id}`}>{t("property.viewDetails")}</Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+                  <CardHeader>
+                    <CardTitle className="text-lg">{title}</CardTitle>
+                    <CardDescription className="flex items-center text-gray-600">
+                      <MapPin className="h-4 w-4 mr-1" />
+                      {location}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex justify-between items-center mb-4">
+                      <span className="text-2xl font-bold bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-transparent">
+                        {property.price || property[language]?.price || ""}
+                      </span>
+                      <span className="text-gray-600">
+                        {(property.area || property[language]?.area || "") + " m²"}
+                      </span>
+                    </div>
+                    <Button
+                      asChild
+                      className="w-full bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-700 hover:to-accent-700 shadow-lg"
+                    >
+                      <Link href={`/bat-dong-san/${property.id}`}>
+                        {t("property.viewDetails")}
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
           <div className="text-center mt-8">
             <Button
@@ -227,7 +275,9 @@ export default function HomePage() {
                 <div className="flex justify-center mb-4 p-3 bg-gradient-to-r from-primary-100 to-accent-100 rounded-full w-fit mx-auto">
                   {item.icon}
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{item.title[language]}</h3>
+                <h3 className="text-xl font-semibold mb-2">
+                  {item.title[language]}
+                </h3>
                 <p className="text-gray-600">{item.description[language]}</p>
               </div>
             ))}
@@ -255,9 +305,9 @@ export default function HomePage() {
               variant="outline"
               className="text-primary-600 border-white hover:bg-white hover:text-primary-700 shadow-xl transform hover:scale-105 transition-all duration-300"
             >
-              <Link href="tel:0123456789">
+              <Link href={`tel:${hotline}`}>
                 <Phone className="h-4 w-4 mr-2" />
-                {t("cta.call")}: 0123 456 789
+                {t("cta.call")}: {hotline}
               </Link>
             </Button>
           </div>
@@ -268,5 +318,5 @@ export default function HomePage() {
         <div className="absolute bottom-10 left-10 w-16 h-16 bg-secondary-400/20 rounded-full blur-xl"></div>
       </section>
     </div>
-  )
+  );
 }

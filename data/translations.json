@@ -185,7 +185,9 @@
       "news": "News",
       "contact": "Contact",
       "login": "Login",
-      "register": "Register"
+      "register": "Register",
+      "rent": "Rent Property",
+      "buy": "Buy Property"
     },
     "hero": {
       "title": "Find Your Dream Home",
@@ -361,7 +363,9 @@
       "news": "뉴스",
       "contact": "연락처",
       "login": "로그인",
-      "register": "회원가입"
+      "register": "회원가입",
+      "rent": "임대 부동산",
+      "buy": "매매 부동산"
     },
     "hero": {
       "title": "꿈의 집을 찾아보세요",
