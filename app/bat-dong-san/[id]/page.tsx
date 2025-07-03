@@ -450,25 +450,7 @@ export default function PropertyDetailPage({
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <form className="space-y-4">
-                    <Input
-                      placeholder={`${t("property.fullName")} *`}
-                      required
-                    />
-                    <Input
-                      placeholder={`${t("property.phone")} *`}
-                      type="tel"
-                      required
-                    />
-                    <Input placeholder={t("property.email")} type="email" />
-                    <Textarea
-                      placeholder={t("property.consultationContent")}
-                      rows={4}
-                    />
-                    <Button className="w-full bg-orange-500 hover:bg-orange-600">
-                      {t("property.sendRequest")}
-                    </Button>
-                  </form>
+                  <ConsultationForm t={t} />
                 </CardContent>
               </Card>
             </div>
@@ -487,5 +469,88 @@ export default function PropertyDetailPage({
         </button>
       )}
     </div>
+  );
+}
+
+// Thêm component form tư vấn
+function ConsultationForm({ t }: { t: any }) {
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (field: string, value: string) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_BASE_URL}/contact-message`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        window.alert(
+          t("contact.successMessage") || "Gửi thông tin thành công!"
+        );
+        setForm({ name: "", phone: "", email: "", message: "" });
+      } else {
+        window.alert(
+          t("contact.errorMessage") ||
+            "Gửi thông tin thất bại. Vui lòng thử lại."
+        );
+      }
+    } catch {
+      window.alert(
+        t("contact.errorMessage") || "Gửi thông tin thất bại. Vui lòng thử lại."
+      );
+    }
+    setLoading(false);
+  };
+
+  return (
+    <form className="space-y-4" onSubmit={handleSubmit}>
+      <Input
+        placeholder={`${t("property.fullName")} *`}
+        required
+        value={form.name}
+        onChange={(e) => handleChange("name", e.target.value)}
+      />
+      <Input
+        placeholder={`${t("property.phone")} *`}
+        type="tel"
+        required
+        value={form.phone}
+        onChange={(e) => handleChange("phone", e.target.value)}
+      />
+      <Input
+        placeholder={t("property.email")}
+        type="email"
+        value={form.email}
+        onChange={(e) => handleChange("email", e.target.value)}
+      />
+      <Textarea
+        placeholder={t("property.consultationContent")}
+        rows={4}
+        required
+        value={form.message}
+        onChange={(e) => handleChange("message", e.target.value)}
+      />
+      <Button
+        className="w-full bg-orange-500 hover:bg-orange-600"
+        type="submit"
+        disabled={loading}
+      >
+        {loading
+          ? t("common.loading") || "Đang gửi..."
+          : t("property.sendRequest")}
+      </Button>
+    </form>
   );
 }

@@ -81,13 +81,42 @@ export default function ContactPage() {
       .catch(() => setMainOfficeMap(null));
   }, [API_BASE_URL]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
-    alert(
-      "Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong thời gian sớm nhất."
-    );
+    try {
+      const res = await fetch(`${API_BASE_URL}/contact-message`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
+      if (!res.ok) throw new Error("Network response was not ok");
+      // Hiển thị thông báo thành công rõ ràng
+      window.alert(
+        t("contact.successMessage") ||
+          "Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong thời gian sớm nhất."
+      );
+      setFormData({
+        name: "",
+        phone: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      window.alert(
+        t("contact.errorMessage") ||
+          "Gửi thông tin thất bại. Vui lòng thử lại sau."
+      );
+    }
   };
 
   const handleChange = (field: string, value: string) => {

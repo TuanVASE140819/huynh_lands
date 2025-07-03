@@ -29,16 +29,26 @@ import {
 } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8011/api";
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8011/api";
 
 function formatPrice(price: number, lang: string) {
   if (!price) return "";
   if (lang === "vi")
-    return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(price);
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(price);
   if (lang === "en")
-    return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(price);
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(price);
   if (lang === "ko")
-    return new Intl.NumberFormat("ko-KR", { style: "currency", currency: "KRW" }).format(price);
+    return new Intl.NumberFormat("ko-KR", {
+      style: "currency",
+      currency: "KRW",
+    }).format(price);
   return price.toLocaleString();
 }
 
@@ -79,18 +89,26 @@ export default function PropertyDetailClient({ id }: { id: string }) {
 
   const nextImage = () => {
     if (!property?.images) return;
-    setCurrentImageIndex((prev) => (prev === property.images.length - 1 ? 0 : prev + 1));
+    setCurrentImageIndex((prev) =>
+      prev === property.images.length - 1 ? 0 : prev + 1
+    );
   };
 
   const prevImage = () => {
     if (!property?.images) return;
-    setCurrentImageIndex((prev) => (prev === 0 ? property.images.length - 1 : prev - 1));
+    setCurrentImageIndex((prev) =>
+      prev === 0 ? property.images.length - 1 : prev - 1
+    );
   };
 
   if (loading)
     return <div className="p-8">{t("loading") || "Đang tải..."}</div>;
   if (!property)
-    return <div className="p-8 text-red-500">{t("notFound") || "Không tìm thấy bất động sản"}</div>;
+    return (
+      <div className="p-8 text-red-500">
+        {t("notFound") || "Không tìm thấy bất động sản"}
+      </div>
+    );
   if (!property[language]) return null;
 
   return (
