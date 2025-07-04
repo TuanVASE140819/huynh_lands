@@ -258,7 +258,10 @@ export default function HomePage() {
                   <CardContent>
                     <div className="flex justify-between items-center mb-4">
                       <span className="text-2xl font-bold bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-transparent">
-                        {formatPrice(Number(property.price || property[language]?.price), language)}
+                        {formatPrice(
+                          Number(property.price || property[language]?.price),
+                          language
+                        )}
                       </span>
                       <span className="text-gray-600">
                         {(property.area || property[language]?.area || "") +
