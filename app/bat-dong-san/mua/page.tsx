@@ -368,7 +368,10 @@ export default function MuaPage() {
 
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-2xl font-bold bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-transparent">
-                      {formatPrice(Number(property[language]?.price), language)}
+                      {formatPrice(
+                        Number(property.price || property[language]?.price),
+                        language
+                      )}
                     </span>
                   </div>
 

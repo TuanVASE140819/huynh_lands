@@ -96,6 +96,26 @@ export default function HomePage() {
     },
   ];
 
+  function formatPrice(price: number, lang: string) {
+    if (!price) return "";
+    if (lang === "vi")
+      return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      }).format(price);
+    if (lang === "en")
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(price);
+    if (lang === "ko")
+      return new Intl.NumberFormat("ko-KR", {
+        style: "currency",
+        currency: "KRW",
+      }).format(price);
+    return price.toLocaleString();
+  }
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -238,7 +258,7 @@ export default function HomePage() {
                   <CardContent>
                     <div className="flex justify-between items-center mb-4">
                       <span className="text-2xl font-bold bg-gradient-to-r from-red-600 to-red-500 bg-clip-text text-transparent">
-                        {property.price || property[language]?.price || ""}
+                        {formatPrice(Number(property.price || property[language]?.price), language)}
                       </span>
                       <span className="text-gray-600">
                         {(property.area || property[language]?.area || "") +
